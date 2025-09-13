@@ -7,3 +7,7 @@ Mediante una metodología Scrum adaptada al trabajo individual, se ha creado una
 Este sistema de diseño combina un sistema de tokens que se adapta a diferentes contextos visuales, una biblioteca de componentes gráficos reutilizables y una aplicación demostrativa. Las evaluaciones realizadas mediante pruebas con usuarios relevantes confirman su usabilidad y eficacia en entornos comerciales reales.
 
 Los resultados de la investigación concluyen que la especialización del sistema de diseño para un sector específico como el pequeño comercio trasciende el cumplimiento normativo, constituyendo una oportunidad estratégica para potenciar la experiencia de usuario del trabajador y la eficiencia operativa en contextos tradicionalmente marginados por los avances tecnológicos.
+
+
+
+Esta será la forma de uso del código presentado en este repositorio:
