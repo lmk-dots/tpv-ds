@@ -9,7 +9,7 @@ import { getToken } from './styles/getToken';
 import { Badge } from './components/Badge';
 import { Label } from './components/Label';
 import { IconButton } from './components/IconButton';
-import { Sun } from '@phosphor-icons/react';
+import { Sun, Carrot, CookingPot } from '@phosphor-icons/react';
 
 function App() {
   const [mode, setMode] = useState<'light' | 'dark'>(
@@ -46,7 +46,9 @@ function App() {
               Acción
             </ActionButton>
             <Badge value={1} color="danger" style={{ color: getToken('bg-color-alt', mode) }} />
-            <Label text="Ejemplo" icon={Sun} highlightColor="cyan" />
+            <Label text="Fruta" icon={Carrot} highlightColor="green" />
+            <Label text="Pescado" icon={CookingPot} highlightColor="blue" />
+            <Label text="Vegano" icon={Sun} highlightColor="yellow" />
             <IconButton icon={Sun} ariaLabel="Ejemplo icono" />
           </div>
         </MainContainer>
