@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import { ActionButton } from './components/ActionButton'
+import { ThemeToggle } from './components/ThemeToggle'
+import { MainContainer } from './components/MainContainer'
+import { Sidebar } from './components/Sidebar'
+import { NavigationBar } from './components/NavigationBar'
 import './App.css'
+import { getToken } from './styles/getToken';
+import { Badge } from './components/Badge';
+import { Label } from './components/Label';
+import { IconButton } from './components/IconButton';
+import { Sun } from '@phosphor-icons/react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [mode, setMode] = useState<'light' | 'dark'>(
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', mode);
+  }, [mode]);
+
+  const handleToggle = () => {
+    setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <NavigationBar mode={mode}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%' }}>
+          <ThemeToggle mode={mode} onToggle={handleToggle} />
+        </div>
+      </NavigationBar>
+      <div style={{ display: 'flex', flexDirection: 'row', minHeight: 'calc(100vh - 64px)', width: '100vw', margin: 0 }}>
+        <MainContainer mode={mode}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: '3rem',
+              gap: '1rem',
+            }}
+          >
+            <ActionButton>
+              Acción
+            </ActionButton>
+            <Badge value={1} color="danger" style={{ color: getToken('bg-color-alt', mode) }} />
+            <Label text="Ejemplo" icon={Sun} highlightColor="cyan" />
+            <IconButton icon={Sun} ariaLabel="Ejemplo icono" />
+          </div>
+        </MainContainer>
+        <Sidebar mode={mode}>
+          <div />
+        </Sidebar>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
 export default App
