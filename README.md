@@ -11,3 +11,8 @@ Los resultados de la investigación concluyen que la especialización del sistem
 
 
 Esta será la forma de uso del código presentado en este repositorio:
+
+-Descragar
+-lanzar
+-ya
+-poco mas
