@@ -1,3 +1,6 @@
+input.textinput-placeholder::placeholder {
+  color: #C49E8B;
+}
 #root {
   width: 100vw;
   height: 100vh;

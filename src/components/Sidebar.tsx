@@ -13,13 +13,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ mode, children }) => {
       style={{
         background: bgColor,
   minHeight: '100%',
-  flex: '3 0 0',
+  width: '400px',
+  flex: 'none',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   margin: 0,
   position: 'static',
-  padding: `${getToken('padding-m', 'general')} ${getToken('padding-xl', 'general')}`,
+  padding: 0,
       }}
     >
       {children}

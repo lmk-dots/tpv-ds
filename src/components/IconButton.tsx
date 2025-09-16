@@ -14,16 +14,13 @@ export interface IconButtonProps {
 export const IconButton: React.FC<IconButtonProps> = ({
   icon: Icon,
   onClick,
-  pressed = false,
   size = 36,
   style,
   ariaLabel = 'Icon button',
   mode,
 }) => {
   const resolvedMode = mode || (document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light');
-  const background = pressed
-    ? getToken('button-bg-color-secondary', resolvedMode)
-    : getToken('button-bg-color-primary', resolvedMode);
+  const background = getToken('button-bg-color-primary', resolvedMode);
   const iconColor = getToken('button-text-color-primary', resolvedMode);
   const borderRadius = getToken('corner-radius-xl', 'general');
   const padding = getToken('padding-xs', 'general');

@@ -1,23 +1,16 @@
-import React from 'react';
 import { Sun } from '@phosphor-icons/react';
 import { IconButton } from './IconButton';
 
-export interface ThemeToggleProps {
-	mode: 'light' | 'dark';
-	onToggle: () => void;
-}
-
-export const ThemeToggle: React.FC<ThemeToggleProps> = ({ mode, onToggle }) => {
-	return (
-		<IconButton
-			icon={Sun}
-			ariaLabel="Cambiar modo de tema"
-			onClick={onToggle}
-			pressed={mode === 'dark'}
-			mode={mode}
-		/>
-	);
+type ThemeToggleProps = {
+  mode: 'light' | 'dark';
+  onToggle: () => void;
 };
 
-
-// ThemeToggle eliminado para rehacer desde cero
+export const ThemeToggle = ({ mode, onToggle }: ThemeToggleProps) => (
+  <IconButton
+    icon={Sun}
+    ariaLabel="Cambiar modo de tema"
+    onClick={onToggle}
+    mode={mode}
+  />
+);

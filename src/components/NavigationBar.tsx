@@ -22,8 +22,15 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ mode, children }) 
         margin: 0,
       }}
     >
-      <h1 style={{ fontSize: getToken('font-size-xl', 'general'), color: getToken('text-color-secondary', mode), margin: 0 }}>
-        Caja
+      <h1
+        style={{
+          fontSize: getToken('font-size-xl', 'general'),
+          color: getToken('text-color-secondary', mode),
+          margin: 0,
+          whiteSpace: 'nowrap',
+        }}
+      >
+  Caja y lista de productos
       </h1>
       {children}
     </nav>

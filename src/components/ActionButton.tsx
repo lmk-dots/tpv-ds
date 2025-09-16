@@ -15,7 +15,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 }) => {
   const mode = document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light';
   const styles: React.CSSProperties = {
-    background: getToken('button-bg-color-primary', mode),
+  background: getToken('button-bg-color-primary', mode),
     color: getToken('button-text-color-primary', mode),
     borderRadius: getToken('corner-radius-s', 'general'),
     fontSize: getToken('font-size-s', 'general'),
