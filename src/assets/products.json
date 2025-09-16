@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "ref": "10000001",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Lechuga romana",
+  "labelIndex": 0,
+    "optionGroups": [
+      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" } ] }
+    ]
+  },
+  {
+    "id": 2,
+    "ref": "10000002",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Chorizo de guisar",
+  "labelIndex": 2,
+    "optionGroups": [
+  { "name": "Sabor", "options": [ { "label": "Dulce", "value": "dulce" }, { "label": "Picante", "value": "picante" }, { "label": "Ahumado", "value": "ahumado" }, { "label": "Ibérico", "value": "iberico" } ] },
+  { "name": "Formato", "options": [ { "label": "Entero", "value": "entero" }, { "label": "Troceado", "value": "troceado" }, { "label": "Rodajas", "value": "rodajas" } ] }
+    ]
+  },
+  {
+    "id": 3,
+    "ref": "10000003",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Plátano de Canarias",
+  "labelIndex": 1,
+    "optionGroups": [
+  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Racimo", "value": "racimo" }, { "label": "Mini", "value": "mini" } ] },
+  { "name": "Maduración", "options": [ { "label": "Verde", "value": "verde" }, { "label": "Maduro", "value": "maduro" }, { "label": "Muy maduro", "value": "muy_maduro" } ] }
+    ]
+  },
+  {
+    "id": 4,
+    "ref": "10000004",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Arándanos frescos",
+  "labelIndex": 3,
+    "optionGroups": [
+  { "name": "Presentación", "options": [ { "label": "Caja", "value": "caja" }, { "label": "Granel", "value": "granel" }, { "label": "Bandeja", "value": "bandeja" }, { "label": "Bolsa", "value": "bolsa" } ] }
+    ]
+  },
+  {
+    "id": 5,
+    "ref": "10000005",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+  "title": "Zumo de naranja natural recién exprimido",
+  "labelIndex": 4,
+    "optionGroups": [
+  { "name": "Envase", "options": [ { "label": "Botella", "value": "botella" }, { "label": "Vaso", "value": "vaso" }, { "label": "Jarra", "value": "jarra" } ] }
+    ]
+  },
+  {
+    "id": 6,
+    "ref": "10000006",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Mix de ensaladas",
+  "labelIndex": 0,
+    "optionGroups": [
+      { "name": "Presentación", "options": [ { "label": "Bolsa", "value": "bolsa" } ] }
+    ]
+  },
+  {
+    "id": 7,
+    "ref": "10000007",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Tomate cherry",
+  "labelIndex": 0,
+    "optionGroups": [
+      { "name": "Presentación", "options": [ { "label": "Caja", "value": "caja" }, { "label": "Granel", "value": "granel" } ] },
+      { "name": "Origen", "options": [ { "label": "Nacional", "value": "nacional" }, { "label": "Importado", "value": "importado" } ] }
+    ]
+  },
+  {
+    "id": 14,
+    "ref": "10000014",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Pepino",
+  "labelIndex": 0,
+    "optionGroups": [
+  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Granel", "value": "granel" }, { "label": "Extra", "value": "extra" } ] }
+    ]
+  },
+  {
+    "id": 15,
+    "ref": "10000015",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Jamón cocido",
+  "labelIndex": 2,
+    "optionGroups": [
+  { "name": "Formato", "options": [ { "label": "Lonchas", "value": "lonchas" }, { "label": "Taco", "value": "taco" }, { "label": "Entero", "value": "entero" }, { "label": "Picado", "value": "picado" } ] },
+  { "name": "Marca", "options": [ { "label": "Premium", "value": "premium" }, { "label": "Económico", "value": "economico" }, { "label": "Artesano", "value": "artesano" } ] }
+    ]
+  },
+  {
+    "id": 16,
+    "ref": "10000016",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Yogur natural",
+  "labelIndex": 1,
+    "optionGroups": [
+  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Pack", "value": "pack" }, { "label": "Familiar", "value": "familiar" } ] },
+  { "name": "Grasa", "options": [ { "label": "Entero", "value": "entero" }, { "label": "Desnatado", "value": "desnatado" }, { "label": "Semidesnatado", "value": "semidesnatado" } ] }
+    ]
+  },
+  {
+    "id": 17,
+    "ref": "10000017",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Pimiento rojo",
+  "labelIndex": 0,
+    "optionGroups": [
+  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Granel", "value": "granel" }, { "label": "Extra", "value": "extra" }, { "label": "Mini", "value": "mini" } ] },
+  { "name": "Origen", "options": [ { "label": "Nacional", "value": "nacional" }, { "label": "Importado", "value": "importado" }, { "label": "Local", "value": "local" } ] }
+    ]
+  },
+  {
+    "id": 8,
+    "ref": "10000008",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Caldo de pollo",
+    "label": "Para cocidos",
+    "optionGroups": [
+      { "name": "Envase", "options": [ { "label": "Brick", "value": "brick" } ] }
+    ]
+  },
+  {
+    "id": 9,
+    "ref": "10000009",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Brotes de espinaca",
+    "label": "Verduras frescas",
+    "optionGroups": [
+      { "name": "Presentación", "options": [ { "label": "Bolsa", "value": "bolsa" } ] }
+    ]
+  },
+  {
+    "id": 10,
+    "ref": "10000010",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Batido de fresa",
+  "labelIndex": 4,
+    "optionGroups": [
+      { "name": "Envase", "options": [ { "label": "Botella", "value": "botella" } ] }
+    ]
+  },
+  {
+    "id": 11,
+    "ref": "10000011",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Aguacate",
+  "labelIndex": 0,
+    "optionGroups": [
+      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" } ] }
+    ]
+  },
+  {
+    "id": 12,
+    "ref": "10000012",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Queso fresco",
+  "labelIndex": 2,
+    "optionGroups": [
+      { "name": "Presentación", "options": [ { "label": "Tarrina", "value": "tarrina" } ] }
+    ]
+  },
+  {
+    "id": 13,
+    "ref": "10000013",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Manzana roja",
+  "labelIndex": 1,
+    "optionGroups": [
+      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" } ] }
+    ]
+  }
+]

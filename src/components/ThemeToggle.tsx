@@ -1,4 +1,4 @@
-import { Sun } from '@phosphor-icons/react';
+import { Sun, Moon } from '@phosphor-icons/react';
 import { IconButton } from './IconButton';
 
 type ThemeToggleProps = {
@@ -8,7 +8,7 @@ type ThemeToggleProps = {
 
 export const ThemeToggle = ({ mode, onToggle }: ThemeToggleProps) => (
   <IconButton
-    icon={Sun}
+    icon={mode === 'light' ? Moon : Sun}
     ariaLabel="Cambiar modo de tema"
     onClick={onToggle}
     mode={mode}

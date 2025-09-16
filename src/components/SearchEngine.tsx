@@ -1,17 +1,25 @@
 import React from 'react';
 import { TextInput } from './TextInput';
 import { IconButton } from './IconButton';
-import { MagnifyingGlass } from '@phosphor-icons/react';
+import { SortAscending, SortDescending } from '@phosphor-icons/react';
+import { Translate } from '@phosphor-icons/react';
+import { Funnel } from '@phosphor-icons/react';
 
 export interface SearchEngineProps {
   value: string;
   onChange: (value: string) => void;
-  onSearch?: () => void;
+  onSort: () => void;
+  sortMode: 'az' | 'za';
+  orderType: 'alphabetical' | 'category';
+  onOrderTypeChange: () => void;
   mode: 'light' | 'dark';
   style?: React.CSSProperties;
 }
 
-export const SearchEngine: React.FC<SearchEngineProps> = ({ value, onChange, onSearch, mode, style }) => {
+export const SearchEngine: React.FC<SearchEngineProps> = (props) => {
+  const { value, onChange, onSort, sortMode, mode, style, orderType, onOrderTypeChange } = props;
+  const sortIcon = sortMode === 'az' ? SortAscending : SortDescending;
+  const orderTypeIcon = orderType === 'alphabetical' ? Funnel : Translate;
   return (
     <div
       style={{
@@ -31,10 +39,16 @@ export const SearchEngine: React.FC<SearchEngineProps> = ({ value, onChange, onS
         style={{ width: '100%' }}
       />
       <IconButton
-        icon={MagnifyingGlass}
+        icon={orderTypeIcon}
         mode={mode}
-        onClick={onSearch}
-        ariaLabel="Buscar"
+        onClick={onOrderTypeChange}
+        ariaLabel={orderType === 'category' ? 'Ordenar alfabéticamente' : 'Ordenar por categorías'}
+      />
+      <IconButton
+        icon={sortIcon}
+        mode={mode}
+        onClick={onSort}
+        ariaLabel={sortMode === 'az' ? 'Ordenar Z-A' : 'Ordenar A-Z'}
       />
     </div>
   );

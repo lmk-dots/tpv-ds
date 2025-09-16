@@ -16,10 +16,10 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   mode,
   style,
 }) => {
-  const background = getToken(checked ? 'button-bg-color-pressed' : 'button-bg-color-primary', mode);
+  const background = getToken(checked ? 'button-bg-color-pressed' : 'bg-color-secondary', mode);
   const color = checked
     ? getToken('label-text-color', mode)
-    : getToken('button-text-color-primary', mode);
+    : getToken('button-text-color-secondary', mode);
   const borderRadius = getToken('corner-radius-s', 'general');
   const fontSize = getToken('font-size-xs', 'general');
   const fontWeight = getToken('font-weight-bold', 'general');

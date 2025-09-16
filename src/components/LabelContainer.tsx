@@ -5,19 +5,28 @@ import { Carrot, CookingPot, AppleLogo, Cherries, OrangeSlice } from '@phosphor-
 
 export interface LabelContainerProps {
   labels: string[];
+  selectedIdxs?: number[];
+  onChange?: (selected: number[]) => void;
   style?: React.CSSProperties;
 }
 
-export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, style }) => {
-  // Example icons and highlight colors for demonstration
-  // Food-related icons
-  // Reordered icons: Carrot, CookingPot, AppleLogo (frutos rojos), Fish
-  // Assign AppleLogo to last label (Frutos rojos)
-  const icons = [Carrot, CookingPot, AppleLogo, Cherries, OrangeSlice];
-  // Custom highlight colors: green, yellow, magenta (frutas variadas), purple (frutos rojos)
-  const highlights = ['green', 'yellow', 'red', 'blue', 'orange'];
+export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, selectedIdxs = [], onChange, style }) => {
+  // Dynamic icon and color assignment based on label name
+  const iconMap: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
+    'Verduras frescas': Carrot,
+    'Para cocidos': CookingPot,
+    'Frutas variadas': AppleLogo,
+    'Frutos rojos': Cherries,
+    'Zumos naturales': OrangeSlice,
+  };
+  const colorMap: Record<string, string> = {
+    'Verduras frescas': 'green',
+    'Para cocidos': 'yellow',
+    'Frutas variadas': 'red',
+    'Frutos rojos': 'blue',
+    'Zumos naturales': 'orange',
+  };
   const paddingM = getToken('padding-m', 'general');
-  const [selectedIdxs, setSelectedIdxs] = React.useState<number[]>([]);
   return (
     <div
       style={{
@@ -33,15 +42,27 @@ export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, style })
         <Label
           key={idx}
           text={label}
-          icon={icons[idx % icons.length]}
-          highlightColor={highlights[idx % highlights.length] as 'cyan' | 'green' | 'yellow' | 'blue' | 'magenta' | 'orange' | 'purple' | 'red'}
+          icon={iconMap[label] || Carrot}
+          highlightColor={
+            (colorMap[label] as
+              | 'cyan'
+              | 'green'
+              | 'yellow'
+              | 'orange'
+              | 'red'
+              | 'magenta'
+              | 'purple'
+              | 'blue') || 'cyan'
+          }
           selected={selectedIdxs.includes(idx)}
           onClick={() => {
-            setSelectedIdxs(selectedIdxs =>
-              selectedIdxs.includes(idx)
-                ? selectedIdxs.filter(i => i !== idx)
-                : [...selectedIdxs, idx]
-            );
+            if (onChange) {
+              onChange(
+                selectedIdxs.includes(idx)
+                  ? selectedIdxs.filter(i => i !== idx)
+                  : [...selectedIdxs, idx]
+              );
+            }
           }}
         />
       ))}

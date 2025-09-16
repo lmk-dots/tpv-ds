@@ -29,15 +29,11 @@ export const Label: React.FC<LabelProps> = ({
   selected = false,
 }) => {
   const mode = document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light';
-  const background = selected
-    ? getToken('bg-color-alt', mode)
-    : getToken(`button-bg-color-accent-${highlightColor}`, 'general');
-  const highlight = getToken(`button-bg-color-accent-${highlightColor}`, 'general');
-  const textColor = selected
-    ? highlight
-    : getToken('label-text-color', mode);
+  const background = getToken(`button-bg-color-accent-${highlightColor}`, 'general');
   const borderRadius = getToken('corner-radius-s', 'general');
   const paddingX = getToken('padding-m', 'general');
+  const buttonPressed = getToken('button-bg-color-pressed', mode);
+  const textColor = getToken('label-text-color', mode);
 
   return (
     <button
@@ -54,14 +50,16 @@ export const Label: React.FC<LabelProps> = ({
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '24px',
-        border: selected ? `2px solid ${highlight}` : 'none',
+        border: 'none',
+        outline: selected ? `2.5px solid ${buttonPressed}` : 'none',
+        outlineOffset: selected ? 4 : 0,
         cursor: 'pointer',
         ...style,
       }}
       onClick={onClick}
     >
       {text}
-        <Icon size={size} color={textColor} {...(selected ? { weight: 'fill' } : {})} />
+      <Icon size={size} color={textColor} {...(selected ? { weight: 'fill' } : {})} />
     </button>
   );
 };

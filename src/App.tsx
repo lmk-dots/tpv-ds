@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import productsData from './assets/products.json';
+import filtersData from './assets/filters.json';
 import { ThemeToggle } from './components/ThemeToggle';
 import { MainContainer } from './components/MainContainer';
 import { Sidebar } from './components/Sidebar';
@@ -11,6 +13,10 @@ import { NumpadContainer } from './components/NumpadContainer';
 import { ActionButton } from './components/ActionButton';
 
 function App() {
+  // Estado para el modo de orden
+  const [sortMode, setSortMode] = useState<'az' | 'za'>('az');
+  const [orderType, setOrderType] = useState<'alphabetical' | 'category'>('alphabetical');
+
   const [inputValue, setInputValue] = useState('');
   const getSystemTheme = () => {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -39,6 +45,39 @@ function App() {
     }
   }, [mode]);
 
+  // State for selected label indices (filters)
+  const [selectedLabelIdxs, setSelectedLabelIdxs] = useState<number[]>([]);
+
+  // Filtrar productos por label y por texto de búsqueda
+  const normalizedInput = inputValue.trim().toLowerCase();
+  let filteredProducts = productsData.filter(product => {
+    const matchesLabel = selectedLabelIdxs.length === 0 || selectedLabelIdxs.includes(Number(product.labelIndex));
+    const matchesText = normalizedInput === '' || product.title.toLowerCase().includes(normalizedInput);
+    return matchesLabel && matchesText;
+  });
+
+  // Ordenar productos según el tipo y el modo
+  if (orderType === 'alphabetical') {
+    if (sortMode === 'az') {
+      filteredProducts = filteredProducts.slice().sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      filteredProducts = filteredProducts.slice().sort((a, b) => b.title.localeCompare(a.title));
+    }
+  } else {
+    // Por categorías (labelIndex), luego por nombre
+    filteredProducts = filteredProducts.slice().sort((a, b) => {
+      const labelA = Number(a.labelIndex);
+      const labelB = Number(b.labelIndex);
+      if (labelA !== labelB) return labelA - labelB;
+      // Dentro de la categoría, alternar sentido
+      if (sortMode === 'az') {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+  }
+
   return (
     <>
       <NavigationBar mode={mode}>
@@ -47,38 +86,36 @@ function App() {
         </div>
       </NavigationBar>
       <div style={{ display: 'flex', flexDirection: 'row', minHeight: 'calc(100vh - 80px)', width: '100vw', margin: 0 }}>
-          <MainContainer mode={mode}>
+        <MainContainer mode={mode}>
           <SearchEngine
             value={inputValue}
             onChange={setInputValue}
-            onSearch={() => console.log('Buscar:', inputValue)}
+            onSort={() => setSortMode(m => m === 'az' ? 'za' : 'az')}
+            sortMode={sortMode}
+            orderType={orderType}
+            onOrderTypeChange={() => setOrderType(t => t === 'alphabetical' ? 'category' : 'alphabetical')}
             mode={mode}
           />
+          {/* Use filters.json for label info, controlled selection */}
           <LabelContainer
-            labels={['Verduras frescas', 'Para cocidos', 'Frutas variadas', 'Frutos rojos', 'Zumos naturales']}
+            labels={filtersData.map(f => f.name)}
+            selectedIdxs={selectedLabelIdxs}
+            onChange={setSelectedLabelIdxs}
           />
           <div style={{ height: '720px', width: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
             <ProductList
-              products={[
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Lechuga romana', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Chorizo de guisar', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Plátano de Canarias', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Arándanos frescos', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Zumo de naranja', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Mix de ensaladas', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Tomate cherry', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Caldo de pollo', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Brotes de espinaca', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Batido de fresa', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Aguacate', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Queso fresco', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Manzana roja', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Pepino', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Jamón cocido', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Yogur natural', mode },
-                { imageSrc: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', alt: 'Producto', text: 'Pimiento rojo', mode },
-              ]}
+              products={filteredProducts.map(product => ({
+                imageSrc: product.imageSrc,
+                alt: product.title,
+                text: product.title,
+                labelIndex: product.labelIndex,
+                filterColor: filtersData[Number(product.labelIndex)]?.color || 'cyan',
+                mode,
+                optionGroups: product.optionGroups,
+                ref: product.ref
+              }))}
               mode={mode}
+              filtersData={filtersData}
             />
           </div>
         </MainContainer>
@@ -101,8 +138,8 @@ function App() {
                 width: '100%',
                 background: mode === 'light' ? '#7CD58E' : '#A1EFB0',
                 color: mode === 'light'
-                  ? '#3A1809' // label-text-color from tokens.json (light)
-                  : '#322A26' // label-text-color from tokens.json (dark)
+                  ? '#FFFFFF' // button-text-color-success from tokens.json (light)
+                  : '#322A26' // button-text-color-success from tokens.json (dark)
               }}
             >
               Proceder al pago
