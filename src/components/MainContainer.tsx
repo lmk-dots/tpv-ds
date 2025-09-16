@@ -12,15 +12,17 @@ export const MainContainer: React.FC<MainContainerProps> = ({ mode, children }) 
   return (
     <div
       style={{
-        background: bgColor,
-        minHeight: '100%',
-        flex: '7 0 0',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: 0,
-        padding: paddingL,
-  gap: 32,
+    background: bgColor,
+  minHeight: '100%',
+  maxHeight: '100%',
+    flex: '7 0 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 0,
+  padding: `${paddingL} ${paddingL} 0 ${paddingL}`,
+    gap: 32,
+    overflow: 'hidden',
       }}
     >
       {children}

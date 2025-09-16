@@ -12,7 +12,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ mode, children }) 
     <nav
       style={{
         width: '100vw',
-        minHeight: '64px',
+  height: '80px',
         background: bgColor,
         display: 'flex',
         alignItems: 'center',

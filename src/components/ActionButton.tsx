@@ -6,12 +6,14 @@ export interface ActionButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
   children,
   onClick,
   disabled = false,
+  style,
 }) => {
   const mode = document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light';
   const styles: React.CSSProperties = {
@@ -28,7 +30,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   };
   return (
     <button
-      style={styles}
+      style={{ ...styles, ...(style || {}) }}
       onClick={onClick}
       disabled={disabled}
     >

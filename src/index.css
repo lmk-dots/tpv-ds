@@ -4,6 +4,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
+  overflow: hidden;
 }
 :root {
   font-family: 'Atkinson Hyperlegible', Arial, Helvetica, sans-serif;

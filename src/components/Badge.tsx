@@ -5,17 +5,18 @@ export interface BadgeProps {
   value: string | number;
   color?: 'danger' | 'warning';
   style?: React.CSSProperties;
+  mode?: 'light' | 'dark';
 }
 
-export const Badge: React.FC<BadgeProps> = ({ value, color = 'danger', style }) => {
-  const mode = document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light';
+export const Badge: React.FC<BadgeProps> = ({ value, color = 'danger', style, mode }) => {
+  const currentMode = mode || (document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light');
   const background = getToken(
-    color === 'danger' ? 'bg-color-danger' : 'bg-color-warning',
-    mode
+    color === 'danger' ? 'button-bg-color-pressed' : 'bg-color-warning',
+    currentMode
   );
   const textColor = getToken(
-    color === 'danger' ? 'text-color-danger' : 'text-color-warning',
-    mode
+    color === 'danger' ? 'button-text-color-danger' : 'button-text-color-warning',
+    currentMode
   );
   const borderRadius = getToken('corner-radius-xl', 'general');
   const fontWeight = getToken('font-weight-bold', 'general');

@@ -7,6 +7,7 @@ export interface IconButtonProps {
   pressed?: boolean;
   size?: number;
   style?: React.CSSProperties;
+  backgroundColorToken?: string;
   ariaLabel?: string;
   mode?: 'light' | 'dark';
 }
@@ -16,11 +17,12 @@ export const IconButton: React.FC<IconButtonProps> = ({
   onClick,
   size = 36,
   style,
+  backgroundColorToken,
   ariaLabel = 'Icon button',
   mode,
 }) => {
   const resolvedMode = mode || (document.documentElement.getAttribute('data-theme') as 'light' | 'dark' || 'light');
-  const background = getToken('button-bg-color-primary', resolvedMode);
+  const background = getToken(backgroundColorToken || 'button-bg-color-primary', resolvedMode);
   const iconColor = getToken('button-text-color-primary', resolvedMode);
   const borderRadius = getToken('corner-radius-xl', 'general');
   const padding = getToken('padding-xs', 'general');

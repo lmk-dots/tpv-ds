@@ -11,16 +11,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ mode, children }) => {
   return (
     <div
       style={{
-        background: bgColor,
-  minHeight: '100%',
-  width: '400px',
-  flex: 'none',
+    background: bgColor,
+  height: '100vh',
+    width: '400px',
+    flex: 'none',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: 0,
-  position: 'static',
-  padding: 0,
+    margin: 0,
+    position: 'static',
+  padding: `0 ${getToken('padding-m', 'general')}`,
       }}
     >
       {children}

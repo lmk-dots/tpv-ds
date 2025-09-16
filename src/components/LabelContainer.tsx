@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label } from './Label';
 import { getToken } from '../styles/getToken';
-import { Sun, Carrot, CookingPot, Percent } from '@phosphor-icons/react';
+import { Carrot, CookingPot, AppleLogo, Cherries, OrangeSlice } from '@phosphor-icons/react';
 
 export interface LabelContainerProps {
   labels: string[];
@@ -10,9 +10,14 @@ export interface LabelContainerProps {
 
 export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, style }) => {
   // Example icons and highlight colors for demonstration
-  const icons = [Sun, Carrot, CookingPot, Percent];
-  const highlights = ['cyan', 'green', 'yellow', 'blue'];
+  // Food-related icons
+  // Reordered icons: Carrot, CookingPot, AppleLogo (frutos rojos), Fish
+  // Assign AppleLogo to last label (Frutos rojos)
+  const icons = [Carrot, CookingPot, AppleLogo, Cherries, OrangeSlice];
+  // Custom highlight colors: green, yellow, magenta (frutas variadas), purple (frutos rojos)
+  const highlights = ['green', 'yellow', 'red', 'blue', 'orange'];
   const paddingM = getToken('padding-m', 'general');
+  const [selectedIdxs, setSelectedIdxs] = React.useState<number[]>([]);
   return (
     <div
       style={{
@@ -20,7 +25,7 @@ export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, style })
         padding: `0 ${paddingM}`,
         display: 'flex',
         flexDirection: 'row',
-  gap: 16,
+        gap: 16,
         ...style,
       }}
     >
@@ -30,6 +35,14 @@ export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, style })
           text={label}
           icon={icons[idx % icons.length]}
           highlightColor={highlights[idx % highlights.length] as 'cyan' | 'green' | 'yellow' | 'blue' | 'magenta' | 'orange' | 'purple' | 'red'}
+          selected={selectedIdxs.includes(idx)}
+          onClick={() => {
+            setSelectedIdxs(selectedIdxs =>
+              selectedIdxs.includes(idx)
+                ? selectedIdxs.filter(i => i !== idx)
+                : [...selectedIdxs, idx]
+            );
+          }}
         />
       ))}
     </div>

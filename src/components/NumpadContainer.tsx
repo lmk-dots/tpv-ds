@@ -20,7 +20,7 @@ export const NumpadContainer: React.FC<NumpadContainerProps> = ({ mode, buttons,
         gap: paddingS,
         width: '100%',
         boxSizing: 'border-box',
-        padding: `${paddingL} ${paddingS}`,
+        padding: `${paddingL} 0`,
         margin: 0,
         ...style,
       }}
