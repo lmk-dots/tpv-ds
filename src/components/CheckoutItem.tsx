@@ -12,10 +12,11 @@ export interface CheckoutItemProps {
   mode?: 'light' | 'dark';
   isAlt?: boolean;
   style?: React.CSSProperties;
+  selected?: boolean;
 }
 
-export const CheckoutItem: React.FC<CheckoutItemProps> = ({ name, price, quantity, selectedOptions, mode = 'light', isAlt = false, style }) => {
-  const bg = isAlt ? getToken('bg-color-alt', mode) : getToken('bg-color-primary', mode);
+export const CheckoutItem: React.FC<CheckoutItemProps> = ({ name, price, quantity, selectedOptions, mode = 'light', isAlt = false, style, selected }) => {
+  const bg = selected ? getToken('button-bg-color-pressed', mode) : (isAlt ? getToken('bg-color-alt', mode) : getToken('bg-color-primary', mode));
   // Calcular el precio total con extras
   const extras = selectedOptions?.reduce((acc, opt) => acc + (opt.extra || 0), 0) ?? 0;
   const totalPrice = price + extras;

@@ -3,6 +3,7 @@ import { Card } from './Card';
 import { getToken } from '../styles/getToken';
 
 export interface ProductCardProps {
+  id: string | number;
   imageSrc: string;
   alt?: string;
   text: string;

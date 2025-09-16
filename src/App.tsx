@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { getToken } from './styles/getToken';
 import productsData from './assets/products.json';
@@ -6,65 +7,7 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { DropdownMenu } from './components/DropdownMenu';
 import { MainContainer } from './components/MainContainer';
 import { Sidebar } from './components/Sidebar';
-  // Checkout items de ejemplo
-  const checkoutItems = [
-    {
-      id: 1,
-      name: 'Tomate rama',
-      price: 1.30,
-      quantity: 2,
-      selectedOptions: [
-        { name: 'Granel', extra: 0.10 }
-      ]
-    },
-    {
-      id: 2,
-      name: 'Sandía',
-      price: 3.20,
-      quantity: 1,
-      selectedOptions: [
-        { name: 'Media', extra: 0.50 },
-        { name: 'Importada', extra: 0.30 }
-      ]
-    },
-    {
-      id: 7,
-      name: 'Fresa',
-      price: 2.90,
-      quantity: 3,
-      selectedOptions: [
-        { name: 'Caja' }
-      ]
-    },
-    {
-      id: 8,
-      name: 'Zumo de naranja',
-      price: 2.80,
-      quantity: 1,
-      selectedOptions: [
-        { name: 'Botella' }
-      ]
-    },
-    {
-      id: 9,
-      name: 'Pimiento rojo',
-      price: 1.60,
-      quantity: 2,
-      selectedOptions: [
-        { name: 'Mini', extra: 0.15 },
-        { name: 'Local', extra: 0.10 }
-      ]
-    },
-    {
-      id: 10,
-      name: 'Manzana roja',
-      price: 1.40,
-      quantity: 4,
-      selectedOptions: [
-        { name: 'Unidad' }
-      ]
-    }
-  ];
+import type { CheckoutListItem } from './components/CheckoutList';
 import { NavigationBar } from './components/NavigationBar';
 import './App.css';
 import { LabelContainer } from './components/LabelContainer';
@@ -76,6 +19,10 @@ import { ActionButton } from './components/ActionButton';
 import { SidebarContainer } from './components/SidebarContainer';
 
 function App() {
+  // State for selected checkout item
+  const [selectedCheckoutIdx, setSelectedCheckoutIdx] = useState<number | null>(null);
+  // Estado para el checkout dinámico
+  const [checkoutItems, setCheckoutItems] = useState<CheckoutListItem[]>([]);
   // Estado para el modo de orden
   const [sortMode, setSortMode] = useState<'az' | 'za'>('az');
   const [orderType, setOrderType] = useState<'alphabetical' | 'category'>('alphabetical');
@@ -175,6 +122,7 @@ function App() {
           <div style={{ height: '720px', width: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
             <ProductList
               products={filteredProducts.map(product => ({
+                id: product.id,
                 imageSrc: product.imageSrc,
                 alt: product.title,
                 text: product.title,
@@ -187,6 +135,45 @@ function App() {
               }))}
               mode={mode}
               filtersData={filtersData}
+              checkoutItems={checkoutItems}
+              onAddToCheckout={(item: import('./components/CheckoutList').CheckoutListItem) => {
+                setCheckoutItems(prev => {
+                  // Normalize options for comparison
+                  const normalizeOptions = (opts: import('./components/CheckoutItem').SelectedOption[] | undefined) =>
+                    (opts ?? []).map(opt => ({ name: opt.name, extra: typeof opt.extra === 'number' ? opt.extra : 0 })).sort((a, b) => a.name.localeCompare(b.name));
+                  const itemOptions = normalizeOptions(item.selectedOptions);
+                  let foundIdx = -1;
+                  for (let i = 0; i < prev.length; i++) {
+                    if (prev[i].id !== item.id) continue;
+                    const prevOptions = normalizeOptions(prev[i].selectedOptions);
+                    if (prevOptions.length !== itemOptions.length) continue;
+                    let same = true;
+                    for (let j = 0; j < prevOptions.length; j++) {
+                      if (prevOptions[j].name !== itemOptions[j].name || prevOptions[j].extra !== itemOptions[j].extra) {
+                        same = false;
+                        break;
+                      }
+                    }
+                    if (same) {
+                      foundIdx = i;
+                      break;
+                    }
+                  }
+                  if (foundIdx !== -1) {
+                    // Only add the selected quantity
+                    const updated = [...prev];
+                    updated[foundIdx] = {
+                      ...updated[foundIdx],
+                      quantity: updated[foundIdx].quantity + item.quantity
+                    };
+                    return updated;
+                  }
+                  return [...prev, item];
+                });
+              }}
+              onRemoveProduct={(id: string | number) => {
+                setCheckoutItems(prev => prev.filter(item => item.id !== id));
+              }}
             />
           </div>
         </MainContainer>
@@ -194,6 +181,8 @@ function App() {
           <CheckoutList
             items={checkoutItems}
             mode={mode}
+            selectedIdx={selectedCheckoutIdx === null ? undefined : selectedCheckoutIdx}
+            onSelect={setSelectedCheckoutIdx}
           />
           {/* Total bar envuelta en SidebarContainer */}
           <SidebarContainer style={{ background: getToken('bg-color-secondary', mode), marginBottom: 24 }}>
@@ -221,7 +210,7 @@ function App() {
                 <span>{
                   checkoutItems
                     .reduce((sum, item) => {
-                      const extras = item.selectedOptions?.reduce((acc, opt) => acc + ('extra' in opt && typeof opt.extra === 'number' ? opt.extra : 0), 0) ?? 0;
+                      const extras = item.selectedOptions?.reduce((acc: number, opt: { extra?: number }) => acc + (typeof opt.extra === 'number' ? opt.extra : 0), 0) ?? 0;
                       return sum + ((item.price + extras) * item.quantity);
                     }, 0)
                     .toFixed(2)
@@ -245,7 +234,7 @@ function App() {
                   (() => {
                     const total = checkoutItems
                       .reduce((sum, item) => {
-                        const extras = item.selectedOptions?.reduce((acc, opt) => acc + ('extra' in opt && typeof opt.extra === 'number' ? opt.extra : 0), 0) ?? 0;
+                        const extras = item.selectedOptions?.reduce((acc: number, opt: { extra?: number }) => acc + (typeof opt.extra === 'number' ? opt.extra : 0), 0) ?? 0;
                         return sum + ((item.price + extras) * item.quantity);
                       }, 0);
                     return (total * 21 / 121).toFixed(2);
@@ -262,7 +251,15 @@ function App() {
               [7, 8, 9, '%'],
               ['+/-', 0, '.', '<'],
             ]}
-            onClick={(val: string | number) => console.log('Numpad value:', val)}
+            onClick={(val: string | number) => {
+              if (val === '<' && selectedCheckoutIdx !== null && checkoutItems[selectedCheckoutIdx]) {
+                setCheckoutItems(prev => prev.filter((_, idx) => idx !== selectedCheckoutIdx));
+                setSelectedCheckoutIdx(null);
+              } else {
+                // ...existing logic (if any)
+                console.log('Numpad value:', val);
+              }
+            }}
             style={{ width: '100%' }}
           />
           <SidebarContainer style={{ marginTop: 8 }}>
@@ -285,4 +282,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

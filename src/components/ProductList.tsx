@@ -1,7 +1,9 @@
 import React from 'react';
-import type { ProductCardProps } from './ProductCard';
-import { ProductCard } from './ProductCard';
 import { Badge } from './Badge';
+import type { ProductCardProps } from './ProductCard';
+import type { CheckoutListItem } from './CheckoutList';
+// import type { CheckoutListItem } from './CheckoutList';
+import { ProductCard } from './ProductCard';
 import { QuantitySelector } from './QuantitySelector';
 import { getToken } from '../styles/getToken';
 import { ProductPopup } from './ProductPopup';
@@ -21,7 +23,7 @@ interface OptionGroup {
 interface MultiGroupSelectorProps {
   groups: OptionGroup[];
   mode: 'light' | 'dark';
-  onConfirm: (selected: string[], quantity: number) => void;
+  onConfirm: (selected: string[], cantidad: number) => void;
   precio: number;
 }
 
@@ -29,16 +31,16 @@ function MultiGroupSelector({ groups, mode, onConfirm, precio }: MultiGroupSelec
   const [selected, setSelected] = React.useState<string[]>(Array(groups.length).fill(''));
   const [quantity, setQuantity] = React.useState(1);
   const [resetKey, setResetKey] = React.useState(0);
-  const canConfirm = selected.every(val => !!val);
-  const canReset = selected.some(val => !!val);
+  const canConfirm = selected.every((val: string) => !!val);
+  const canReset = selected.some((val: string) => !!val);
 
   // Calculate total price
   const basePrice = typeof precio === 'number' && !isNaN(precio) ? precio : 0;
   let extras = 0;
   if (groups && groups.length > 0) {
-    groups.forEach((group, idx) => {
+    groups.forEach((group: OptionGroup, idx: number) => {
       const selectedValue = selected[idx];
-      const option = group.options.find(opt => opt.value === selectedValue);
+      const option = group.options.find((opt: OptionOption) => opt.value === selectedValue);
       if (option && typeof option.precioExtra === 'number' && option.precioExtra > 0) {
         extras += option.precioExtra;
       }
@@ -47,13 +49,13 @@ function MultiGroupSelector({ groups, mode, onConfirm, precio }: MultiGroupSelec
   // basePrice is now set from the precio prop
   const totalPrice = ((basePrice + extras) * quantity).toFixed(2);
   return (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: '100%', alignItems: 'flex-start', paddingTop: 0, paddingBottom: 0 }}>
-      {groups.map((group, idx) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: '100%', alignItems: 'flex-start', paddingTop: 0, paddingBottom: 0 }}>
+      {groups.map((group: OptionGroup, idx: number) => (
         <RadioGroup
           key={resetKey + '-' + idx}
           options={group.options}
-          onConfirm={val => {
-            setSelected(sel => {
+          onConfirm={(val: string) => {
+            setSelected((sel: string[]) => {
               const copy = [...sel];
               copy[idx] = val;
               return copy;
@@ -123,12 +125,16 @@ function MultiGroupSelector({ groups, mode, onConfirm, precio }: MultiGroupSelec
     </div>
   );
 }
+
 export interface ProductListProps {
   products: ProductCardProps[];
   mode: 'light' | 'dark';
   style?: React.CSSProperties;
-  options?: Array<{ label: string; value: string }>; // Opciones extra
+  options?: Array<{ label: string; value: string }>;
   filtersData?: Array<{ index: number; name: string; color: string }>;
+  onAddToCheckout?: (item: CheckoutListItem) => void;
+  checkoutItems?: CheckoutListItem[];
+  onRemoveProduct?: (id: string | number) => void;
 }
 
 export const ProductList: React.FC<ProductListProps> = ({
@@ -136,10 +142,12 @@ export const ProductList: React.FC<ProductListProps> = ({
   mode,
   style,
   filtersData,
+  onAddToCheckout,
+  checkoutItems = [],
+  onRemoveProduct,
 }) => {
-  const [selectedCounts, setSelectedCounts] = React.useState<{ [idx: number]: number }>({});
-  const [popupIdx, setPopupIdx] = React.useState<number | null>(null);
-
+  // Filtrar productos únicos por ref para los que tienen precio único y sin opciones múltiples
+  // Deduplicate by ref, prefer entry with precio if available
   // Filtrar productos únicos por ref para los que tienen precio único y sin opciones múltiples
   // Deduplicate by ref, prefer entry with precio if available
   const refMap = new Map<string, ProductCardProps>();
@@ -159,22 +167,27 @@ export const ProductList: React.FC<ProductListProps> = ({
   });
   const filteredProducts = Array.from(refMap.values());
 
+  // Add missing popupIdx state
+  const [popupIdx, setPopupIdx] = React.useState<number | null>(null);
+
   return (
     <>
-      <style>{`
-        .ProductList-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #F1E4DE #FFFFFF;
-        }
-        .ProductList-scrollbar::-webkit-scrollbar {
-          width: 8px;
-          background: #F1E4DE;
-        }
-        .ProductList-scrollbar::-webkit-scrollbar-thumb {
-          background: #F1E4DE;
-          border-radius: 8px;
-        }
-      `}</style>
+      <style>
+        {`
+          .ProductList-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #F1E4DE #FFFFFF;
+          }
+          .ProductList-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            background: #F1E4DE;
+          }
+          .ProductList-scrollbar::-webkit-scrollbar-thumb {
+            background: #F1E4DE;
+            border-radius: 8px;
+          }
+        `}
+      </style>
       <div
         className="ProductList-scrollbar"
         style={{
@@ -191,6 +204,10 @@ export const ProductList: React.FC<ProductListProps> = ({
         {filteredProducts.map((product, idx) => {
           const hasMultipleGroups =
             product.optionGroups && product.optionGroups.some(group => group.options.length > 1);
+          // Find total quantity in cart for this product (all variants)
+          const productQuantity = checkoutItems
+            .filter(item => item.id === product.id)
+            .reduce((sum, item) => sum + (item.quantity || 0), 0);
           return (
             <div
               key={idx}
@@ -208,18 +225,23 @@ export const ProductList: React.FC<ProductListProps> = ({
                 if (hasMultipleGroups) {
                   setPopupIdx(idx);
                 } else {
-                  setSelectedCounts(counts => ({
-                    ...counts,
-                    [idx]: (counts[idx] || 0) + 1,
-                  }));
+                  if (onAddToCheckout) {
+                    onAddToCheckout({
+                      id: product.id,
+                      name: product.text,
+                      price: product.precio,
+                      quantity: 1,
+                      selectedOptions: [],
+                    });
+                  }
                 }
               }}
             >
               <ProductCard {...product} mode={mode} />
-              {selectedCounts[idx] > 0 && (
+              {productQuantity > 0 && (
                 <>
                   <div style={{ position: 'absolute', right: 8, bottom: 8, zIndex: 2 }}>
-                    <Badge value={selectedCounts[idx]} color="danger" mode={mode} />
+                    <Badge value={productQuantity} color="danger" mode={mode} />
                   </div>
                   <div style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }}>
                     <button
@@ -238,11 +260,9 @@ export const ProductList: React.FC<ProductListProps> = ({
                       }}
                       onClick={e => {
                         e.stopPropagation();
-                        setSelectedCounts(counts => {
-                          const newCounts = { ...counts };
-                          delete newCounts[idx];
-                          return newCounts;
-                        });
+                        if (onRemoveProduct) {
+                          onRemoveProduct(product.id);
+                        }
                       }}
                     >
                       <svg
@@ -276,7 +296,6 @@ export const ProductList: React.FC<ProductListProps> = ({
               product={{
                 ...filteredProducts[popupIdx],
                 cantidad: 1,
-                total: selectedCounts[popupIdx] || 0,
                 ref: filteredProducts[popupIdx].ref,
               }}
               mode={mode}
@@ -289,11 +308,21 @@ export const ProductList: React.FC<ProductListProps> = ({
                 }))}
                 mode={mode}
                 precio={filteredProducts[popupIdx].precio}
-                onConfirm={(_selected, cantidad) => {
-                  setSelectedCounts(counts => ({
-                    ...counts,
-                    [popupIdx]: (counts[popupIdx] || 0) + cantidad,
-                  }));
+                onConfirm={(selected: string[], cantidad: number) => {
+                  if (onAddToCheckout) {
+                    // Map selected options to { name, extra }
+                    const selectedOptions = (filteredProducts[popupIdx].optionGroups ?? []).map((group, idx) => {
+                      const opt = group.options.find(o => o.value === selected[idx]);
+                      return opt ? { name: opt.label, extra: opt.precioExtra } : { name: '', extra: 0 };
+                    });
+                    onAddToCheckout({
+                      id: filteredProducts[popupIdx].id,
+                      name: filteredProducts[popupIdx].text,
+                      price: filteredProducts[popupIdx].precio,
+                      quantity: cantidad,
+                      selectedOptions,
+                    });
+                  }
                   setPopupIdx(null);
                 }}
               />

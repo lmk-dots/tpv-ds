@@ -19,9 +19,7 @@ export const NumpadButton: React.FC<NumpadButtonProps> = ({ value, onClick, mode
       : getToken('button-bg-color-secondary', mode);
   const color = isDanger
     ? getToken('button-text-color-danger', mode)
-    : isNumber
-      ? getToken('button-text-color-primary', mode)
-      : getToken('button-text-color-secondary', mode);
+    : getToken('button-text-color-primary', mode);
   const borderRadius = getToken('corner-radius-s', 'general');
   const fontSize = getToken('font-size-s', 'general');
   const fontWeight = getToken('font-weight-bold', 'general');
