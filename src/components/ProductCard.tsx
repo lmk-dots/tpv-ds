@@ -6,22 +6,22 @@ export interface ProductCardProps {
   imageSrc: string;
   alt?: string;
   text: string;
+  precio: number;
   mode: 'light' | 'dark';
   style?: React.CSSProperties;
-  optionGroups?: Array<{ name: string; options: Array<{ label: string; value: string }> }>;
+  optionGroups?: Array<{ name: string; options: Array<{ label: string; value: string; precioExtra?: number }> }>;
   labelIndex?: number;
   filterColor?: string;
   ref?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ imageSrc, alt = '', text, mode, style, optionGroups, filterColor }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ imageSrc, alt = '', text, precio, mode, style, filterColor, optionGroups }) => {
   const imageRadius = getToken('corner-radius-s', 'general');
   const textColor = getToken('text-color-primary', mode);
   const textSize = getToken('font-size-m', 'general');
-  // Calcular el total de opciones y si hay algún grupo con más de una opción
-  const multipleGroupsCount = optionGroups ? optionGroups.filter(group => group.options.length > 1).length : 0;
-  const hasOptions = optionGroups && optionGroups.some(group => group.options.length > 1);
-  const lineClamp = hasOptions ? 2 : 3;
+  const hasPrecio = typeof precio === 'number' && !isNaN(precio) && precio > 0;
+  const hasMultipleOptions = Array.isArray(optionGroups) && optionGroups.some(group => group.options.length > 1);
+  const lineClamp = 2;
   return (
     <Card
       mode={mode}
@@ -46,7 +46,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ imageSrc, alt = '', te
             color: textColor,
             fontSize: textSize,
             display: '-webkit-box',
-            minHeight: hasOptions ? '2.6em' : '3.9em',
+            minHeight: '2.6em', // 2 lines * 1.3em line-height
             lineHeight: '1.3em',
             width: '100%',
             WebkitLineClamp: lineClamp,
@@ -58,23 +58,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ imageSrc, alt = '', te
         >
           {text}
         </span>
-        {multipleGroupsCount > 0 ? (
-           <span
-             style={{
-               fontWeight: 400,
-               fontStyle: 'italic',
-               textAlign: 'left',
-               color: getToken('text-color-secondary', mode),
-               fontSize: getToken('font-size-xs', 'general'),
-               display: 'inline-block',
-               width: '100%',
-               marginTop: 2,
-             }}
-           >
-            {multipleGroupsCount} {multipleGroupsCount === 1 ? 'opción' : 'opciones'}
-           </span>
-        ) : null}
+        <span
+          style={{
+            fontWeight: 400,
+            textAlign: 'left',
+            color: getToken('text-color-secondary', mode),
+            fontSize: getToken('font-size-xs', 'general'),
+            display: 'block',
+            width: '100%'
+          }}
+        >
+          {hasMultipleOptions ? 'varias opciones' : (hasPrecio ? precio.toFixed(2) + '€' : '')}
+        </span>
       </div>
-  </Card>
+    </Card>
   );
 }

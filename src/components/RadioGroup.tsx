@@ -3,7 +3,7 @@ import { getToken } from '../styles/getToken';
 import { RadioButton } from './RadioButton';
 
 export interface RadioGroupProps {
-  options: Array<{ label: string; value: string }>;
+  options: Array<{ label: string; value: string; precioExtra?: number }>;
   onConfirm: (selectedValue: string) => void;
   mode?: 'light' | 'dark';
   title?: string;
@@ -38,9 +38,27 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({ options, onConfirm, mode
               onConfirm(opt.value);
             }}
             mode={mode}
-            style={{ minWidth: 120, fontSize: getToken('font-size-s', 'general') }}
+            style={{ minWidth: 120, fontSize: getToken('font-size-s', 'general'), position: 'relative' }}
           >
-            {opt.label}
+            <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              {opt.label}
+              {opt.precioExtra !== undefined && opt.precioExtra > 0 && (
+                <span
+                  style={{
+                    background: getToken('bg-color-warning', mode),
+                    color: getToken('button-text-color-warning', mode),
+                    borderRadius: getToken('corner-radius-xl', 'general'),
+                    fontWeight: getToken('font-weight-bold', 'general'),
+                    fontSize: getToken('font-size-xs', 'general'),
+                    padding: '2px 8px',
+                    marginLeft: 4,
+                    display: 'inline-block',
+                  }}
+                >
+                  {'+' + opt.precioExtra.toFixed(2) + '€'}
+                </span>
+              )}
+            </span>
           </RadioButton>
         ))}
       </div>

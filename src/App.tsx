@@ -1,16 +1,79 @@
 import { useState, useEffect } from 'react';
+import { getToken } from './styles/getToken';
 import productsData from './assets/products.json';
 import filtersData from './assets/filters.json';
 import { ThemeToggle } from './components/ThemeToggle';
+import { DropdownMenu } from './components/DropdownMenu';
 import { MainContainer } from './components/MainContainer';
 import { Sidebar } from './components/Sidebar';
+  // Checkout items de ejemplo
+  const checkoutItems = [
+    {
+      id: 1,
+      name: 'Tomate rama',
+      price: 1.30,
+      quantity: 2,
+      selectedOptions: [
+        { name: 'Granel', extra: 0.10 }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Sandía',
+      price: 3.20,
+      quantity: 1,
+      selectedOptions: [
+        { name: 'Media', extra: 0.50 },
+        { name: 'Importada', extra: 0.30 }
+      ]
+    },
+    {
+      id: 7,
+      name: 'Fresa',
+      price: 2.90,
+      quantity: 3,
+      selectedOptions: [
+        { name: 'Caja' }
+      ]
+    },
+    {
+      id: 8,
+      name: 'Zumo de naranja',
+      price: 2.80,
+      quantity: 1,
+      selectedOptions: [
+        { name: 'Botella' }
+      ]
+    },
+    {
+      id: 9,
+      name: 'Pimiento rojo',
+      price: 1.60,
+      quantity: 2,
+      selectedOptions: [
+        { name: 'Mini', extra: 0.15 },
+        { name: 'Local', extra: 0.10 }
+      ]
+    },
+    {
+      id: 10,
+      name: 'Manzana roja',
+      price: 1.40,
+      quantity: 4,
+      selectedOptions: [
+        { name: 'Unidad' }
+      ]
+    }
+  ];
 import { NavigationBar } from './components/NavigationBar';
 import './App.css';
 import { LabelContainer } from './components/LabelContainer';
 import { ProductList } from './components/ProductList';
 import { SearchEngine } from './components/SearchEngine';
 import { NumpadContainer } from './components/NumpadContainer';
+import { CheckoutList } from './components/CheckoutList';
 import { ActionButton } from './components/ActionButton';
+import { SidebarContainer } from './components/SidebarContainer';
 
 function App() {
   // Estado para el modo de orden
@@ -81,9 +144,16 @@ function App() {
   return (
     <>
       <NavigationBar mode={mode}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%' }}>
-          <ThemeToggle mode={mode} onToggle={handleToggle} />
-        </div>
+        <ThemeToggle mode={mode} onToggle={handleToggle} />
+        <DropdownMenu
+          options={[
+            { label: 'Opción 1', value: 1 },
+            { label: 'Opción 2', value: 2 },
+            { label: 'Opción 3', value: 3 }
+          ]}
+          onSelect={val => alert('Seleccionaste: ' + val)}
+          mode={mode}
+        />
       </NavigationBar>
       <div style={{ display: 'flex', flexDirection: 'row', minHeight: 'calc(100vh - 80px)', width: '100vw', margin: 0 }}>
         <MainContainer mode={mode}>
@@ -108,6 +178,7 @@ function App() {
                 imageSrc: product.imageSrc,
                 alt: product.title,
                 text: product.title,
+                precio: typeof product.precio === 'number' ? product.precio : 0,
                 labelIndex: product.labelIndex,
                 filterColor: filtersData[Number(product.labelIndex)]?.color || 'cyan',
                 mode,
@@ -120,6 +191,69 @@ function App() {
           </div>
         </MainContainer>
         <Sidebar mode={mode}>
+          <CheckoutList
+            items={checkoutItems}
+            mode={mode}
+          />
+          {/* Total bar envuelta en SidebarContainer */}
+          <SidebarContainer style={{ background: getToken('bg-color-secondary', mode), marginBottom: 24 }}>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                background: 'transparent',
+              }}
+            >
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontSize: 24,
+                  fontWeight: 600,
+                  color: getToken('text-color-primary', mode),
+                }}
+              >
+                <span>Total</span>
+                <span>{
+                  checkoutItems
+                    .reduce((sum, item) => {
+                      const extras = item.selectedOptions?.reduce((acc, opt) => acc + ('extra' in opt && typeof opt.extra === 'number' ? opt.extra : 0), 0) ?? 0;
+                      return sum + ((item.price + extras) * item.quantity);
+                    }, 0)
+                    .toFixed(2)
+                }€</span>
+              </div>
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontSize: 13,
+                  fontWeight: 400,
+                  color: getToken('text-color-secondary', mode),
+                  marginTop: 2,
+                }}
+              >
+                <span>Total en impuestos (21% IVA)</span>
+                <span>{
+                  (() => {
+                    const total = checkoutItems
+                      .reduce((sum, item) => {
+                        const extras = item.selectedOptions?.reduce((acc, opt) => acc + ('extra' in opt && typeof opt.extra === 'number' ? opt.extra : 0), 0) ?? 0;
+                        return sum + ((item.price + extras) * item.quantity);
+                      }, 0);
+                    return (total * 21 / 121).toFixed(2);
+                  })()
+                }€</span>
+              </div>
+            </div>
+          </SidebarContainer>
           <NumpadContainer
             mode={mode}
             buttons={[
@@ -131,20 +265,20 @@ function App() {
             onClick={(val: string | number) => console.log('Numpad value:', val)}
             style={{ width: '100%' }}
           />
-          <div style={{ width: '100%', marginTop: 8 }}>
+          <SidebarContainer style={{ marginTop: 8 }}>
             <ActionButton
               onClick={() => alert('Botón pulsado!')}
               style={{
                 width: '100%',
                 background: mode === 'light' ? '#7CD58E' : '#A1EFB0',
                 color: mode === 'light'
-                  ? '#FFFFFF' // button-text-color-success from tokens.json (light)
-                  : '#322A26' // button-text-color-success from tokens.json (dark)
+                  ? '#FFFFFF'
+                  : '#322A26'
               }}
             >
               Proceder al pago
             </ActionButton>
-          </div>
+          </SidebarContainer>
         </Sidebar>
       </div>
     </>

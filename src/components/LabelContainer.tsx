@@ -24,7 +24,7 @@ export const LabelContainer: React.FC<LabelContainerProps> = ({ labels, selected
     'Para cocidos': 'yellow',
     'Frutas variadas': 'red',
     'Frutos rojos': 'blue',
-    'Zumos naturales': 'orange',
+    'Zumos naturales': 'yellow',
   };
   const paddingM = getToken('padding-m', 'general');
   return (

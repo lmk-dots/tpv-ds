@@ -11,7 +11,6 @@ export interface NumpadContainerProps {
 
 export const NumpadContainer: React.FC<NumpadContainerProps> = ({ mode, buttons, onClick, style }) => {
   const paddingS = getToken('padding-s', 'general');
-  const paddingL = getToken('padding-l', 'general');
   return (
     <div
       style={{
@@ -20,7 +19,7 @@ export const NumpadContainer: React.FC<NumpadContainerProps> = ({ mode, buttons,
         gap: paddingS,
         width: '100%',
         boxSizing: 'border-box',
-        padding: `${paddingL} 0`,
+        padding: `0 ${getToken('padding-m', 'general')}`,
         margin: 0,
         ...style,
       }}

@@ -8,23 +8,44 @@ import { ProductPopup } from './ProductPopup';
 import { RadioGroup } from './RadioGroup';
 import { ActionButton } from './ActionButton';
 // Componente para gestionar dos grupos de selección y un solo botón de confirmar
+interface OptionOption {
+  label: string;
+  value: string;
+  precioExtra?: number;
+}
 interface OptionGroup {
   title: string;
-  options: Array<{ label: string; value: string }>;
+  options: OptionOption[];
 }
 
 interface MultiGroupSelectorProps {
   groups: OptionGroup[];
   mode: 'light' | 'dark';
   onConfirm: (selected: string[], quantity: number) => void;
+  precio: number;
 }
 
-function MultiGroupSelector({ groups, mode, onConfirm }: MultiGroupSelectorProps) {
+function MultiGroupSelector({ groups, mode, onConfirm, precio }: MultiGroupSelectorProps) {
   const [selected, setSelected] = React.useState<string[]>(Array(groups.length).fill(''));
   const [quantity, setQuantity] = React.useState(1);
   const [resetKey, setResetKey] = React.useState(0);
   const canConfirm = selected.every(val => !!val);
   const canReset = selected.some(val => !!val);
+
+  // Calculate total price
+  const basePrice = typeof precio === 'number' && !isNaN(precio) ? precio : 0;
+  let extras = 0;
+  if (groups && groups.length > 0) {
+    groups.forEach((group, idx) => {
+      const selectedValue = selected[idx];
+      const option = group.options.find(opt => opt.value === selectedValue);
+      if (option && typeof option.precioExtra === 'number' && option.precioExtra > 0) {
+        extras += option.precioExtra;
+      }
+    });
+  }
+  // basePrice is now set from the precio prop
+  const totalPrice = ((basePrice + extras) * quantity).toFixed(2);
   return (
   <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: '100%', alignItems: 'flex-start', paddingTop: 0, paddingBottom: 0 }}>
       {groups.map((group, idx) => (
@@ -96,14 +117,12 @@ function MultiGroupSelector({ groups, mode, onConfirm }: MultiGroupSelectorProps
             if (canConfirm) onConfirm(selected, quantity);
           }}
         >
-          Añadir
+          Añadir {canConfirm ? `(${totalPrice}€)` : ''}
         </button>
       </div>
     </div>
   );
 }
-// ...existing code...
-
 export interface ProductListProps {
   products: ProductCardProps[];
   mode: 'light' | 'dark';
@@ -112,10 +131,34 @@ export interface ProductListProps {
   filtersData?: Array<{ index: number; name: string; color: string }>;
 }
 
-// Eliminar la exportación duplicada y usar correctamente el prop style
-export const ProductList: React.FC<ProductListProps> = ({ products, mode, style, filtersData }) => {
+export const ProductList: React.FC<ProductListProps> = ({
+  products,
+  mode,
+  style,
+  filtersData,
+}) => {
   const [selectedCounts, setSelectedCounts] = React.useState<{ [idx: number]: number }>({});
   const [popupIdx, setPopupIdx] = React.useState<number | null>(null);
+
+  // Filtrar productos únicos por ref para los que tienen precio único y sin opciones múltiples
+  // Deduplicate by ref, prefer entry with precio if available
+  const refMap = new Map<string, ProductCardProps>();
+  products.forEach((product: ProductCardProps) => {
+    if (!product.ref) return;
+    if (!refMap.has(product.ref)) {
+      refMap.set(product.ref, product);
+    } else {
+      // Prefer entry with precio
+      const existing = refMap.get(product.ref)!;
+      if (typeof product.precio === 'number' && !isNaN(product.precio)) {
+        refMap.set(product.ref, product);
+      } else if (!(typeof existing.precio === 'number' && !isNaN(existing.precio))) {
+        refMap.set(product.ref, product);
+      }
+    }
+  });
+  const filteredProducts = Array.from(refMap.values());
+
   return (
     <>
       <style>{`
@@ -145,9 +188,9 @@ export const ProductList: React.FC<ProductListProps> = ({ products, mode, style,
           ...(style || {}),
         }}
       >
-        {products.map((product, idx) => {
-          // Detectar si el producto tiene algún grupo con más de una opción
-          const hasMultipleGroups = product.optionGroups && product.optionGroups.some(group => group.options.length > 1);
+        {filteredProducts.map((product, idx) => {
+          const hasMultipleGroups =
+            product.optionGroups && product.optionGroups.some(group => group.options.length > 1);
           return (
             <div
               key={idx}
@@ -167,7 +210,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, mode, style,
                 } else {
                   setSelectedCounts(counts => ({
                     ...counts,
-                    [idx]: (counts[idx] || 0) + 1
+                    [idx]: (counts[idx] || 0) + 1,
                   }));
                 }
               }}
@@ -202,8 +245,19 @@ export const ProductList: React.FC<ProductListProps> = ({ products, mode, style,
                         });
                       }}
                     >
-                      <svg width={20} height={20} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 5L11 11M11 5L5 11" stroke={getToken('button-text-color-danger', mode)} strokeWidth="2" strokeLinecap="round" />
+                      <svg
+                        width={20}
+                        height={20}
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 5L11 11M11 5L5 11"
+                          stroke={getToken('button-text-color-danger', mode)}
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -212,32 +266,39 @@ export const ProductList: React.FC<ProductListProps> = ({ products, mode, style,
             </div>
           );
         })}
-        {popupIdx !== null && products[popupIdx] && products[popupIdx].optionGroups && products[popupIdx].optionGroups.some(group => group.options.length > 1) && (
-          <ProductPopup
-            open={true}
-            onClose={() => setPopupIdx(null)}
-            product={{
-              ...products[popupIdx],
-              cantidad: 1,
-              total: selectedCounts[popupIdx] || 0,
-              ref: products[popupIdx].ref
-            }}
-            mode={mode}
-            filtersData={filtersData}
-          >
-            <MultiGroupSelector
-              groups={products[popupIdx].optionGroups.map(group => ({ title: group.name, options: group.options }))}
-              mode={mode}
-              onConfirm={(_selected, cantidad) => {
-                setSelectedCounts(counts => ({
-                  ...counts,
-                  [popupIdx]: (counts[popupIdx] || 0) + cantidad
-                }));
-                setPopupIdx(null);
+        {popupIdx !== null &&
+          filteredProducts[popupIdx] &&
+          filteredProducts[popupIdx].optionGroups &&
+          filteredProducts[popupIdx].optionGroups.some(group => group.options.length > 1) && (
+            <ProductPopup
+              open={true}
+              onClose={() => setPopupIdx(null)}
+              product={{
+                ...filteredProducts[popupIdx],
+                cantidad: 1,
+                total: selectedCounts[popupIdx] || 0,
+                ref: filteredProducts[popupIdx].ref,
               }}
-            />
-          </ProductPopup>
-        )}
+              mode={mode}
+              filtersData={filtersData}
+            >
+              <MultiGroupSelector
+                groups={filteredProducts[popupIdx].optionGroups.map(group => ({
+                  title: group.name,
+                  options: group.options,
+                }))}
+                mode={mode}
+                precio={filteredProducts[popupIdx].precio}
+                onConfirm={(_selected, cantidad) => {
+                  setSelectedCounts(counts => ({
+                    ...counts,
+                    [popupIdx]: (counts[popupIdx] || 0) + cantidad,
+                  }));
+                  setPopupIdx(null);
+                }}
+              />
+            </ProductPopup>
+          )}
       </div>
     </>
   );

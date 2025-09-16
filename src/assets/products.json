@@ -1,178 +1,352 @@
 [
   {
-    "id": 1,
-    "ref": "10000001",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Lechuga romana",
-  "labelIndex": 0,
+    "id": 12,
+    "ref": "10000012",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Pepino",
+      "labelIndex": 0,
+    "precio": 1.20,
     "optionGroups": [
-      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" } ] }
-    ]
-  },
-  {
-    "id": 2,
-    "ref": "10000002",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Chorizo de guisar",
-  "labelIndex": 2,
-    "optionGroups": [
-  { "name": "Sabor", "options": [ { "label": "Dulce", "value": "dulce" }, { "label": "Picante", "value": "picante" }, { "label": "Ahumado", "value": "ahumado" }, { "label": "Ibérico", "value": "iberico" } ] },
-  { "name": "Formato", "options": [ { "label": "Entero", "value": "entero" }, { "label": "Troceado", "value": "troceado" }, { "label": "Rodajas", "value": "rodajas" } ] }
+      { "name": "Tipo", "options": [
+        { "label": "Unidad", "value": "unidad", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.10 }
+      ] },
+      { "name": "Origen", "options": [
+        { "label": "Nacional", "value": "nacional", "precioExtra": 0 },
+        { "label": "Local", "value": "local", "precioExtra": 0.05 }
+      ] }
     ]
   },
   {
     "id": 3,
     "ref": "10000003",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
     "title": "Plátano de Canarias",
-  "labelIndex": 1,
+    "labelIndex": 1,
+    "precio": 2.10,
     "optionGroups": [
-  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Racimo", "value": "racimo" }, { "label": "Mini", "value": "mini" } ] },
-  { "name": "Maduración", "options": [ { "label": "Verde", "value": "verde" }, { "label": "Maduro", "value": "maduro" }, { "label": "Muy maduro", "value": "muy_maduro" } ] }
+  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad", "precioExtra": 0 }, { "label": "Racimo", "value": "racimo", "precioExtra": 0.40 }, { "label": "Mini", "value": "mini", "precioExtra": 0.20 } ] },
+  { "name": "Maduración", "options": [ { "label": "Verde", "value": "verde", "precioExtra": 0 }, { "label": "Maduro", "value": "maduro", "precioExtra": 0.10 }, { "label": "Muy maduro", "value": "muy_maduro", "precioExtra": 0.15 } ] }
     ]
   },
   {
     "id": 4,
     "ref": "10000004",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
     "title": "Arándanos frescos",
-  "labelIndex": 3,
+      "labelIndex": 2,
+    "precio": 4.00,
     "optionGroups": [
-  { "name": "Presentación", "options": [ { "label": "Caja", "value": "caja" }, { "label": "Granel", "value": "granel" }, { "label": "Bandeja", "value": "bandeja" }, { "label": "Bolsa", "value": "bolsa" } ] }
+  { "name": "Presentación", "options": [ { "label": "Caja", "value": "caja", "precioExtra": 0 }, { "label": "Granel", "value": "granel", "precioExtra": 0.30 }, { "label": "Bandeja", "value": "bandeja", "precioExtra": 0.20 }, { "label": "Bolsa", "value": "bolsa", "precioExtra": 0.10 } ] }
     ]
   },
   {
     "id": 5,
     "ref": "10000005",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-  "title": "Zumo de naranja natural recién exprimido",
-  "labelIndex": 4,
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Zumo de naranja recién exprimido",
+      "labelIndex": 3,
+    "precio": 2.80,
     "optionGroups": [
-  { "name": "Envase", "options": [ { "label": "Botella", "value": "botella" }, { "label": "Vaso", "value": "vaso" }, { "label": "Jarra", "value": "jarra" } ] }
+  { "name": "Envase", "options": [ { "label": "Botella", "value": "botella", "precioExtra": 0 }, { "label": "Vaso", "value": "vaso", "precioExtra": 0.15 }, { "label": "Jarra", "value": "jarra", "precioExtra": 0.30 } ] }
     ]
   },
   {
     "id": 6,
     "ref": "10000006",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
     "title": "Mix de ensaladas",
-  "labelIndex": 0,
+      "labelIndex": 0,
+    "precio": 2.50,
     "optionGroups": [
-      { "name": "Presentación", "options": [ { "label": "Bolsa", "value": "bolsa" } ] }
+      { "name": "Presentación", "options": [ { "label": "Bolsa", "value": "bolsa", "precioExtra": 0 } ] }
+    ]
+  },
+
+  {
+    "id": 17,
+    "ref": "10000017",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Pimiento rojo",
+      "labelIndex": 0,
+    "precio": 1.60,
+    "optionGroups": [
+      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad", "precioExtra": 0 }, { "label": "Granel", "value": "granel", "precioExtra": 0.10 }, { "label": "Extra", "value": "extra", "precioExtra": 0.25 }, { "label": "Mini", "value": "mini", "precioExtra": 0.15 } ] },
+      { "name": "Origen", "options": [ { "label": "Nacional", "value": "nacional", "precioExtra": 0 }, { "label": "Importado", "value": "importado", "precioExtra": 0.20 }, { "label": "Local", "value": "local", "precioExtra": 0.10 } ] }
+    ]
+  },
+
+  {
+    "id": 9,
+    "ref": "10000009",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Brotes de espinaca",
+      "labelIndex": 0,
+    "precio": 1.90,
+    "optionGroups": [
+      { "name": "Presentación", "options": [ { "label": "Bolsa", "value": "bolsa", "precioExtra": 0 } ] }
+    ]
+  },
+
+  {
+    "id": 10,
+    "ref": "10000010",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Batido de fresa",
+      "labelIndex": 3,
+    "precio": 2.60,
+    "optionGroups": [
+      { "name": "Envase", "options": [ { "label": "Botella", "value": "botella", "precioExtra": 0 } ] }
+    ]
+  },
+
+  {
+    "id": 11,
+    "ref": "10000011",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Aguacate",
+      "labelIndex": 1,
+    "precio": 1.70,
+    "optionGroups": [
+      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad", "precioExtra": 0 } ] }
+    ]
+  },
+
+  {
+    "id": 13,
+    "ref": "10000013",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Manzana roja",
+      "labelIndex": 1,
+    "precio": 1.40,
+    "optionGroups": [
+      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad", "precioExtra": 0 } ] }
+    ]
+  },
+  {
+    "id": 1,
+    "ref": "10000001",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Tomate rama",
+    "labelIndex": 0,
+    "precio": 1.30,
+    "optionGroups": [
+      { "name": "Tipo", "options": [
+        { "label": "Unidad", "value": "unidad", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.10 }
+      ] }
+    ]
+  },
+  {
+    "id": 2,
+    "ref": "10000002",
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Sandía",
+    "labelIndex": 1,
+    "precio": 3.20,
+    "optionGroups": [
+      { "name": "Presentación", "options": [
+        { "label": "Entera", "value": "entera", "precioExtra": 0 },
+        { "label": "Media", "value": "media", "precioExtra": 0.50 },
+        { "label": "Cuarto", "value": "cuarto", "precioExtra": 0.80 }
+      ] },
+      { "name": "Origen", "options": [
+        { "label": "Nacional", "value": "nacional", "precioExtra": 0 },
+        { "label": "Importada", "value": "importada", "precioExtra": 0.30 }
+      ] }
     ]
   },
   {
     "id": 7,
     "ref": "10000007",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Tomate cherry",
-  "labelIndex": 0,
+  "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Fresa",
+    "labelIndex": 2,
+    "precio": 2.90,
     "optionGroups": [
-      { "name": "Presentación", "options": [ { "label": "Caja", "value": "caja" }, { "label": "Granel", "value": "granel" } ] },
-      { "name": "Origen", "options": [ { "label": "Nacional", "value": "nacional" }, { "label": "Importado", "value": "importado" } ] }
-    ]
-  },
-  {
-    "id": 14,
-    "ref": "10000014",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Pepino",
-  "labelIndex": 0,
-    "optionGroups": [
-  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Granel", "value": "granel" }, { "label": "Extra", "value": "extra" } ] }
-    ]
-  },
-  {
-    "id": 15,
-    "ref": "10000015",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Jamón cocido",
-  "labelIndex": 2,
-    "optionGroups": [
-  { "name": "Formato", "options": [ { "label": "Lonchas", "value": "lonchas" }, { "label": "Taco", "value": "taco" }, { "label": "Entero", "value": "entero" }, { "label": "Picado", "value": "picado" } ] },
-  { "name": "Marca", "options": [ { "label": "Premium", "value": "premium" }, { "label": "Económico", "value": "economico" }, { "label": "Artesano", "value": "artesano" } ] }
-    ]
-  },
-  {
-    "id": 16,
-    "ref": "10000016",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Yogur natural",
-  "labelIndex": 1,
-    "optionGroups": [
-  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Pack", "value": "pack" }, { "label": "Familiar", "value": "familiar" } ] },
-  { "name": "Grasa", "options": [ { "label": "Entero", "value": "entero" }, { "label": "Desnatado", "value": "desnatado" }, { "label": "Semidesnatado", "value": "semidesnatado" } ] }
-    ]
-  },
-  {
-    "id": 17,
-    "ref": "10000017",
-    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Pimiento rojo",
-  "labelIndex": 0,
-    "optionGroups": [
-  { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" }, { "label": "Granel", "value": "granel" }, { "label": "Extra", "value": "extra" }, { "label": "Mini", "value": "mini" } ] },
-  { "name": "Origen", "options": [ { "label": "Nacional", "value": "nacional" }, { "label": "Importado", "value": "importado" }, { "label": "Local", "value": "local" } ] }
+      { "name": "Tipo", "options": [
+        { "label": "Caja", "value": "caja", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.20 }
+      ] }
     ]
   },
   {
     "id": 8,
     "ref": "10000008",
     "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Caldo de pollo",
-    "label": "Para cocidos",
+    "title": "Mora",
+    "labelIndex": 2,
+    "precio": 3.10,
     "optionGroups": [
-      { "name": "Envase", "options": [ { "label": "Brick", "value": "brick" } ] }
+      { "name": "Presentación", "options": [
+        { "label": "Bandeja", "value": "bandeja", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.25 },
+        { "label": "Bolsa", "value": "bolsa", "precioExtra": 0.15 }
+      ] }
     ]
   },
   {
-    "id": 9,
-    "ref": "10000009",
+    "id": 14,
+    "ref": "10000014",
     "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Brotes de espinaca",
-    "label": "Verduras frescas",
+    "title": "Zumo de piña natural",
+    "labelIndex": 3,
+    "precio": 2.90,
     "optionGroups": [
-      { "name": "Presentación", "options": [ { "label": "Bolsa", "value": "bolsa" } ] }
+      { "name": "Envase", "options": [
+        { "label": "Botella", "value": "botella", "precioExtra": 0 },
+        { "label": "Vaso", "value": "vaso", "precioExtra": 0.20 }
+      ] },
+      { "name": "Tamaño", "options": [
+        { "label": "Pequeño", "value": "pequeno", "precioExtra": 0 },
+        { "label": "Grande", "value": "grande", "precioExtra": 0.40 }
+      ] }
     ]
   },
   {
-    "id": 10,
-    "ref": "10000010",
+    "id": 15,
+    "ref": "10000015",
     "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Batido de fresa",
-  "labelIndex": 4,
+    "title": "Zumo de mango natural",
+    "labelIndex": 3,
+    "precio": 3.10,
     "optionGroups": [
-      { "name": "Envase", "options": [ { "label": "Botella", "value": "botella" } ] }
+      { "name": "Envase", "options": [
+        { "label": "Botella", "value": "botella", "precioExtra": 0 },
+        { "label": "Vaso", "value": "vaso", "precioExtra": 0.20 }
+      ] }
     ]
   },
   {
-    "id": 11,
-    "ref": "10000011",
+    "id": 16,
+    "ref": "10000016",
     "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Aguacate",
-  "labelIndex": 0,
+    "title": "Zumo de frutos rojos",
+    "labelIndex": 3,
+    "precio": 3.30,
     "optionGroups": [
-      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" } ] }
+      { "name": "Envase", "options": [
+        { "label": "Botella", "value": "botella", "precioExtra": 0 },
+        { "label": "Vaso", "value": "vaso", "precioExtra": 0.20 },
+        { "label": "Jarra", "value": "jarra", "precioExtra": 0.40 }
+      ] },
+      { "name": "Tamaño", "options": [
+        { "label": "Pequeño", "value": "pequeno", "precioExtra": 0 },
+        { "label": "Grande", "value": "grande", "precioExtra": 0.50 }
+      ] }
     ]
   },
   {
-    "id": 12,
-    "ref": "10000012",
+    "id": 1,
+    "ref": "10000001",
     "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Queso fresco",
-  "labelIndex": 2,
+    "title": "Tomate rama",
+    "labelIndex": 0,
+    "precio": 1.30,
     "optionGroups": [
-      { "name": "Presentación", "options": [ { "label": "Tarrina", "value": "tarrina" } ] }
+      { "name": "Tipo", "options": [
+        { "label": "Unidad", "value": "unidad", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.10 }
+      ] }
     ]
   },
   {
-    "id": 13,
-    "ref": "10000013",
+    "id": 2,
+    "ref": "10000002",
     "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
-    "title": "Manzana roja",
-  "labelIndex": 1,
+    "title": "Sandía",
+    "labelIndex": 1,
+    "precio": 3.20,
     "optionGroups": [
-      { "name": "Tipo", "options": [ { "label": "Unidad", "value": "unidad" } ] }
+      { "name": "Presentación", "options": [
+        { "label": "Entera", "value": "entera", "precioExtra": 0 },
+        { "label": "Media", "value": "media", "precioExtra": 0.50 },
+        { "label": "Cuarto", "value": "cuarto", "precioExtra": 0.80 }
+      ] },
+      { "name": "Origen", "options": [
+        { "label": "Nacional", "value": "nacional", "precioExtra": 0 },
+        { "label": "Importada", "value": "importada", "precioExtra": 0.30 }
+      ] }
+    ]
+  },
+  {
+    "id": 7,
+    "ref": "10000007",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Fresa",
+    "labelIndex": 2,
+    "precio": 2.90,
+    "optionGroups": [
+      { "name": "Tipo", "options": [
+        { "label": "Caja", "value": "caja", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.20 }
+      ] }
+    ]
+  },
+  {
+    "id": 8,
+    "ref": "10000008",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Mora",
+    "labelIndex": 2,
+    "precio": 3.10,
+    "optionGroups": [
+      { "name": "Presentación", "options": [
+        { "label": "Bandeja", "value": "bandeja", "precioExtra": 0 },
+        { "label": "Granel", "value": "granel", "precioExtra": 0.25 },
+        { "label": "Bolsa", "value": "bolsa", "precioExtra": 0.15 }
+      ] }
+    ]
+  },
+  {
+    "id": 14,
+    "ref": "10000014",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Zumo de piña natural",
+    "labelIndex": 3,
+    "precio": 2.90,
+    "optionGroups": [
+      { "name": "Envase", "options": [
+        { "label": "Botella", "value": "botella", "precioExtra": 0 },
+        { "label": "Vaso", "value": "vaso", "precioExtra": 0.20 }
+      ] },
+      { "name": "Tamaño", "options": [
+        { "label": "Pequeño", "value": "pequeno", "precioExtra": 0 },
+        { "label": "Grande", "value": "grande", "precioExtra": 0.40 }
+      ] }
+    ]
+  },
+  {
+    "id": 15,
+    "ref": "10000015",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Zumo de mango natural",
+    "labelIndex": 3,
+    "precio": 3.10,
+    "optionGroups": [
+      { "name": "Envase", "options": [
+        { "label": "Botella", "value": "botella", "precioExtra": 0 },
+        { "label": "Vaso", "value": "vaso", "precioExtra": 0.20 }
+      ] }
+    ]
+  },
+  {
+    "id": 16,
+    "ref": "10000016",
+    "imageSrc": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    "title": "Zumo de frutos rojos",
+    "labelIndex": 3,
+    "precio": 3.30,
+    "optionGroups": [
+      { "name": "Envase", "options": [
+        { "label": "Botella", "value": "botella", "precioExtra": 0 },
+        { "label": "Vaso", "value": "vaso", "precioExtra": 0.20 },
+        { "label": "Jarra", "value": "jarra", "precioExtra": 0.40 }
+      ] },
+      { "name": "Tamaño", "options": [
+        { "label": "Pequeño", "value": "pequeno", "precioExtra": 0 },
+        { "label": "Grande", "value": "grande", "precioExtra": 0.50 }
+      ] }
     ]
   }
-]
+  ]

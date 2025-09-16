@@ -10,10 +10,12 @@ export interface ProductPopupProps {
     imageSrc: string;
     alt?: string;
     text: string;
+    precio: number;
     labelIndex?: number;
     cantidad?: number;
     total?: number;
     ref?: string;
+    optionGroups?: Array<{ name: string; options: Array<{ label: string; value: string; precioExtra?: number }> }>;
     // Puedes añadir más campos según lo que necesites mostrar
   };
   filtersData?: Array<{ index: number; name: string; color: string }>;
@@ -108,6 +110,9 @@ export const ProductPopup: React.FC<ProductPopupProps> = ({ open, onClose, produ
           }}
         >
           {product.text}
+          <span style={{ fontWeight: 400, fontSize: getToken('font-size-l', 'general'), color: getToken('text-color-secondary', mode), marginLeft: 12 }}>
+            {' ' + product.precio.toFixed(2) + '€'}
+          </span>
         </span>
         {/* Espacio para info adicional, con margen arriba moderado */}
         <div style={{ width: '100%', marginBottom: 0, marginTop: 32 }}>

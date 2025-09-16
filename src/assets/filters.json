@@ -1,7 +1,6 @@
 [
   { "index": 0, "name": "Verduras frescas", "color": "green" },
   { "index": 1, "name": "Frutas variadas", "color": "red" },
-  { "index": 2, "name": "Para cocidos", "color": "yellow" },
-  { "index": 3, "name": "Frutos rojos", "color": "blue" },
-  { "index": 4, "name": "Zumos naturales", "color": "orange" }
+  { "index": 2, "name": "Frutos rojos", "color": "blue" },
+  { "index": 3, "name": "Zumos naturales", "color": "yellow" }
 ]
