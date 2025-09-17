@@ -1,4 +1,4 @@
-# 📘 Creación de un Sistema de Diseño dirigido a Terminales de Punto de Venta (TPV) para el pequeño comercio
+# Creación de un Sistema de Diseño dirigido a Terminales de Punto de Venta (TPV) para el pequeño comercio
 
 Este repositorio contiene el código de la aplicación web de prueba desarrollada como parte del **Trabajo Fin de Máster (TFM)** del **Máster Universitario en Diseño y Desarrollo de Interfaz de Usuario Web (Front-End Design and Development)**.  
 
@@ -9,7 +9,7 @@ El proyecto busca cubrir la falta de sistemas de diseño especializados para el 
 
 ---
 
-## 🚀 Requisitos previos
+## Requisitos previos
 
 Antes de comenzar, asegúrate de tener instalado en tu máquina:
 
@@ -25,11 +25,11 @@ npm -v
 
 ---
 
-## 📥 Instalación
+## Instalación
 
 Existen dos formas de obtener el proyecto en tu máquina local:
 
-### 🔹 Opción 1: Clonar con Git
+### Opción 1: Clonar con Git
 Si tienes **Git** instalado, ejecuta en la terminal:
 
 ```bash
@@ -37,7 +37,7 @@ git clone https://github.com/lmk-dots/tpv-ds.git
 cd tpv-ds
 ```
 
-### 🔹 Opción 2: Descargar como ZIP
+### Opción 2: Descargar como ZIP
 1. Haz clic en el botón verde **Code** en la parte superior del repositorio.  
 2. Selecciona **Download ZIP**.  
 3. Descomprime el archivo en tu equipo.  
@@ -55,7 +55,7 @@ npm install
 
 ---
 
-## ▶️ Ejecución en modo desarrollo
+## Ejecución en modo desarrollo
 
 Para iniciar el servidor de desarrollo de **Vite**:
 
@@ -65,11 +65,11 @@ npm run dev
 
 Esto arrancará la aplicación en:
 
-👉 [http://localhost:5173](http://localhost:5173)
+[http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 👨‍💻 Autor
+## Autoría
 
 Proyecto desarrollado por **Luis Miguel Villoslada Montes** como parte del **Trabajo Fin de Máster (TFM)**.  
 
