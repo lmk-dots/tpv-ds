@@ -1,18 +1,75 @@
-El marco legislativo actual ha impulsado al pequeño comercio español a implementar soluciones tecnológicas que estén alineadas con los nuevos requisitos fiscales. La entrada en vigor de estas normativas sobre facturación electrónica y trazabilidad de transacciones ha evidenciado indirectamente las deficiencias de las interfaces de usuario convencionales, diseñadas sin considerar estas exigencias regulatorias ni las restricciones operativas características del pequeño comercio.
+# 📘 TFM - Aplicación Web con React y Vite
 
-Este Trabajo Fin de Máster identifica un vacío en el mercado: la escasez de sistemas de diseño especializados para aplicaciones de Terminales Punto de Venta (TPV) destinados a estos pequeños comercios, un sector que habitualmente afronta limitaciones en términos de recursos, espacio físico y alfabetización digital de sus trabajadores. Aprovechando esta coyuntura como catalizador, se ha buscado desarrollar un sistema de diseño accesible y de código abierto específicamente orientado a este nicho.
+Este repositorio contiene el código de la aplicación web desarrollada como parte del **Trabajo Fin de Máster**.  
+La aplicación ha sido construida con **[React](https://react.dev/)** y **[Vite](https://vitejs.dev/)** para ofrecer un rendimiento óptimo y una experiencia de desarrollo ágil.
 
-Mediante una metodología Scrum adaptada al trabajo individual, se ha creado una biblioteca basada en React que servirá a los desarrolladores de software como base para responder a esta necesidad, facilitando además la democratización del acceso a futuras aplicaciones TPV al reducir los costes de desarrollo gracias a su naturaleza de código abierto.
+🌍 **Demo en línea**: [https://lmk-dots.github.io/tpv-ds/](https://lmk-dots.github.io/tpv-ds/)
 
-Este sistema de diseño combina un sistema de tokens que se adapta a diferentes contextos visuales, una biblioteca de componentes gráficos reutilizables y una aplicación demostrativa. Las evaluaciones realizadas mediante pruebas con usuarios relevantes confirman su usabilidad y eficacia en entornos comerciales reales.
+---
 
-Los resultados de la investigación concluyen que la especialización del sistema de diseño para un sector específico como el pequeño comercio trasciende el cumplimiento normativo, constituyendo una oportunidad estratégica para potenciar la experiencia de usuario del trabajador y la eficiencia operativa en contextos tradicionalmente marginados por los avances tecnológicos.
+## 🚀 Requisitos previos
 
+Antes de comenzar, asegúrate de tener instalado en tu máquina:
 
+- [Node.js](https://nodejs.org/) (versión recomendada: **18.x** o superior)  
+- [npm](https://www.npmjs.com/) como gestor de paquetes
 
-Esta será la forma de uso del código presentado en este repositorio:
+Puedes comprobar si los tienes instalados con:
 
--Descragar
--lanzar
--ya
--poco mas
+```bash
+node -v
+npm -v
+```
+
+---
+
+## 📥 Instalación
+
+Existen dos formas de obtener el proyecto en tu máquina local:
+
+### 🔹 Opción 1: Clonar con Git
+Si tienes **Git** instalado, ejecuta en la terminal:
+
+```bash
+git clone https://github.com/lmk-dots/tpv-ds.git
+cd tpv-ds
+```
+
+### 🔹 Opción 2: Descargar como ZIP
+1. Haz clic en el botón verde **Code** en la parte superior del repositorio.  
+2. Selecciona **Download ZIP**.  
+3. Descomprime el archivo en tu equipo.  
+4. Abre una terminal en la carpeta del proyecto descomprimido.  
+
+---
+
+### Instalación de dependencias
+
+En ambos casos, instala las dependencias ejecutando:
+
+```bash
+npm install
+```
+
+---
+
+## ▶️ Ejecución en modo desarrollo
+
+Para iniciar el servidor de desarrollo de **Vite**:
+
+```bash
+npm run dev
+```
+
+Esto arrancará la aplicación en:
+
+👉 [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto desarrollado por **lmk-dots** como parte del **Trabajo Fin de Máster (TFM)**.  
+
+🔗 GitHub: [https://github.com/lmk-dots](https://github.com/lmk-dots)  
+🌍 Demo: [https://lmk-dots.github.io/tpv-ds/](https://lmk-dots.github.io/tpv-ds/)
