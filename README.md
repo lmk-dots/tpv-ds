@@ -1,9 +1,12 @@
 # 📘 TFM - Aplicación Web con React y Vite
+# 📘 Creación de un Sistema de Diseño dirigido a Terminales de Punto de Venta (TPV) para el pequeño comercio
 
-Este repositorio contiene el código de la aplicación web desarrollada como parte del **Trabajo Fin de Máster**.  
-La aplicación ha sido construida con **[React](https://react.dev/)** y **[Vite](https://vitejs.dev/)** para ofrecer un rendimiento óptimo y una experiencia de desarrollo ágil.
+Este repositorio contiene el código de la aplicación web desarrollada como parte del **Trabajo Fin de Máster (TFM)** del **Máster Universitario en Diseño y Desarrollo de Interfaz de Usuario Web (Front-End Design and Development)**.  
 
 🌍 **Demo en línea**: [https://lmk-dots.github.io/tpv-ds/](https://lmk-dots.github.io/tpv-ds/)
+
+**Resumen del TFM:**  
+El proyecto busca cubrir la falta de sistemas de diseño especializados para TPV destinados al pequeño comercio, desarrollando una biblioteca de componentes accesible y reutilizable en React. Esta herramienta facilita la creación de aplicaciones TPV más eficientes y usables, adaptadas a las necesidades de este sector y cumpliendo con normativas actuales sobre facturación y trazabilidad.
 
 ---
 
