@@ -17,10 +17,9 @@ export interface DropdownMenuProps {
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, onSelect, mode, style }) => {
   const [open, setOpen] = useState(false);
-  const cardWidth = 204; // Igual que ProductCard
 
   return (
-  <div style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end', width: cardWidth, ...style }}>
+    <div style={{ position: 'relative', ...style }}>
       <IconButton
         icon={BurgerMenu}
         size={36}

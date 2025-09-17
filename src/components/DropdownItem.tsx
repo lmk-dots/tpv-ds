@@ -20,7 +20,7 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({ label, value, onClic
       padding: '16px',
       cursor: 'pointer',
       fontWeight: 500,
-      fontSize: getToken('font-size-m', 'general'),
+      fontSize: getToken('font-size-s', 'general'),
       borderBottom: !isLast ? `1px solid ${getToken('bg-color-primary', mode)}` : 'none',
       transition: 'background 0.2s',
       ...style,

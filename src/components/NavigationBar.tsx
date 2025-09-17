@@ -54,7 +54,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ mode, children }) 
           height: '100%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           gap: 16,
           paddingRight: padding,
           boxSizing: 'border-box',

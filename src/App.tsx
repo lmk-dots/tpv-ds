@@ -17,8 +17,16 @@ import { NumpadContainer } from './components/NumpadContainer';
 import { CheckoutList } from './components/CheckoutList';
 import { ActionButton } from './components/ActionButton';
 import { SidebarContainer } from './components/SidebarContainer';
+import { Toast } from './components/Toast';
+import { Popup } from './components/Popup';
+import { IconButton } from './components/IconButton';
+import { Barcode } from '@phosphor-icons/react';
 
 function App() {
+  // Payment popup state
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+  // Barcode popup state
+  const [showBarcodePopup, setShowBarcodePopup] = useState(false);
   // State for selected checkout item
   const [selectedCheckoutIdx, setSelectedCheckoutIdx] = useState<number | null>(null);
   // Estado para el checkout dinámico
@@ -26,6 +34,13 @@ function App() {
   // Estado para el modo de orden
   const [sortMode, setSortMode] = useState<'az' | 'za'>('az');
   const [orderType, setOrderType] = useState<'alphabetical' | 'category'>('alphabetical');
+
+  // Toast state
+  const [toast, setToast] = useState<{ visible: boolean; message: string; type: 'success' | 'danger' }>({ visible: false, message: '', type: 'success' });
+
+  const showToast = (message: string, type: 'success' | 'danger') => {
+    setToast({ visible: true, message, type });
+  };
 
   const [inputValue, setInputValue] = useState('');
   const getSystemTheme = () => {
@@ -91,12 +106,15 @@ function App() {
   return (
     <>
       <NavigationBar mode={mode}>
+        <IconButton icon={Barcode} ariaLabel="Lector de código de barras" onClick={() => setShowBarcodePopup(true)} mode={mode} />
         <ThemeToggle mode={mode} onToggle={handleToggle} />
         <DropdownMenu
           options={[
-            { label: 'Opción 1', value: 1 },
-            { label: 'Opción 2', value: 2 },
-            { label: 'Opción 3', value: 3 }
+            { label: 'Caja y productos', value: 'caja' },
+            { label: 'Clientes', value: 'clientes' },
+            { label: 'Facturas', value: 'facturas' },
+            { label: 'Listas de inventario', value: 'productos' },
+            { label: 'Opciones avanzadas', value: 'avanzadas' },
           ]}
           onSelect={val => alert('Seleccionaste: ' + val)}
           mode={mode}
@@ -159,20 +177,33 @@ function App() {
                       break;
                     }
                   }
+                  let updated;
                   if (foundIdx !== -1) {
                     // Only add the selected quantity
-                    const updated = [...prev];
+                    updated = [...prev];
                     updated[foundIdx] = {
                       ...updated[foundIdx],
                       quantity: updated[foundIdx].quantity + item.quantity
                     };
+                    showToast('Producto añadido al carrito', 'success');
+                    setSelectedCheckoutIdx(foundIdx);
                     return updated;
                   }
-                  return [...prev, item];
+                  updated = [...prev, item];
+                  showToast('Producto añadido al carrito', 'success');
+                  setSelectedCheckoutIdx(updated.length - 1);
+                  return updated;
                 });
               }}
               onRemoveProduct={(id: string | number) => {
-                setCheckoutItems(prev => prev.filter(item => item.id !== id));
+                setCheckoutItems(prev => {
+                  const exists = prev.some(item => item.id === id);
+                  const newItems = prev.filter(item => item.id !== id);
+                  if (exists) {
+                    showToast('Producto retirado', 'danger');
+                  }
+                  return newItems;
+                });
               }}
             />
           </div>
@@ -253,8 +284,22 @@ function App() {
             ]}
             onClick={(val: string | number) => {
               if (val === '<' && selectedCheckoutIdx !== null && checkoutItems[selectedCheckoutIdx]) {
-                setCheckoutItems(prev => prev.filter((_, idx) => idx !== selectedCheckoutIdx));
-                setSelectedCheckoutIdx(null);
+                setCheckoutItems(prev => {
+                  const exists = prev[selectedCheckoutIdx] !== undefined;
+                  const newItems = prev.filter((_, idx) => idx !== selectedCheckoutIdx);
+                  if (exists) {
+                    showToast('Producto retirado', 'danger');
+                  }
+                  // Seleccionar el siguiente item si existe
+                  if (newItems.length > 0) {
+                    let nextIdx = selectedCheckoutIdx;
+                    if (nextIdx >= newItems.length) nextIdx = newItems.length - 1;
+                    setSelectedCheckoutIdx(nextIdx);
+                  } else {
+                    setSelectedCheckoutIdx(null);
+                  }
+                  return newItems;
+                });
               } else {
                 // ...existing logic (if any)
                 console.log('Numpad value:', val);
@@ -264,7 +309,13 @@ function App() {
           />
           <SidebarContainer style={{ marginTop: 8 }}>
             <ActionButton
-              onClick={() => alert('Botón pulsado!')}
+              onClick={() => {
+                if (checkoutItems.length === 0) {
+                  showToast('carrito vacío', 'danger');
+                  return;
+                }
+                setShowPaymentPopup(true);
+              }}
               style={{
                 width: '100%',
                 background: mode === 'light' ? '#7CD58E' : '#A1EFB0',
@@ -278,6 +329,22 @@ function App() {
           </SidebarContainer>
         </Sidebar>
       </div>
+      <Toast
+        message={toast.message}
+        visible={toast.visible}
+        type={toast.type}
+        onClose={() => setToast(t => ({ ...t, visible: false }))}
+        duration={2200}
+      />
+      <Popup
+        visible={showPaymentPopup}
+        onClose={() => setShowPaymentPopup(false)}
+      />
+      <Popup
+        visible={showBarcodePopup}
+        onClose={() => setShowBarcodePopup(false)}
+        message="Conectando con el lector de código de barras"
+      />
     </>
   );
 }

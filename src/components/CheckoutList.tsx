@@ -20,10 +20,26 @@ export interface CheckoutListProps {
 
 export const CheckoutList: React.FC<CheckoutListProps> = ({ items, mode = 'light', selectedIdx, onSelect }) => {
   const [selected, setSelected] = React.useState<number | null>(null);
-  // Use getToken for selected background color
-  // ...existing code...
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (containerRef.current && typeof selectedIdx === 'number') {
+      const itemDiv = containerRef.current.children[selectedIdx] as HTMLElement | undefined;
+      if (itemDiv) {
+        const container = containerRef.current;
+        const itemTop = itemDiv.offsetTop;
+        const itemBottom = itemTop + itemDiv.offsetHeight;
+        const viewTop = container.scrollTop;
+        const viewBottom = viewTop + container.clientHeight;
+        if (itemTop < viewTop) {
+          container.scrollTop = itemTop;
+        } else if (itemBottom > viewBottom) {
+          container.scrollTop = itemBottom - container.clientHeight;
+        }
+      }
+    }
+  }, [selectedIdx]);
   return (
-    <div style={{ width: '100%', height: 'calc(50% - 24px)', overflowY: 'auto', overflowX: 'hidden' }}>
+    <div ref={containerRef} style={{ width: '100%', height: 'calc(50% - 24px)', overflowY: 'auto', overflowX: 'hidden' }}>
       {items.map((item, idx) => (
         <div
           key={item.id}

@@ -29,7 +29,7 @@ export const CheckoutItem: React.FC<CheckoutItemProps> = ({ name, price, quantit
         boxShadow: 'none',
         fontSize: 18,
         fontWeight: 500,
-        color: getToken('text-color-primary', mode),
+        color: selected ? getToken('label-text-color', mode) : getToken('text-color-primary', mode),
         ...style,
       }}
     >
@@ -41,7 +41,17 @@ export const CheckoutItem: React.FC<CheckoutItemProps> = ({ name, price, quantit
         }}
       >
         <span style={{ fontWeight: 700, minWidth: 40, textAlign: 'left' }}>{quantity}x</span>
-        <span style={{ flex: 1, textAlign: 'left', paddingLeft: 12, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
+        <span style={{
+          flex: 1,
+          textAlign: 'left',
+          paddingLeft: 12,
+          minWidth: 0,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          color: selected ? getToken('label-text-color', mode) : undefined,
+          fontWeight: selected ? 700 : 500
+        }}>{name}</span>
         <span style={{ minWidth: 80, maxWidth: 100, textAlign: 'right', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 32 }}>{totalPrice.toFixed(2)}€</span>
       </div>
       {selectedOptions && selectedOptions.length > 0 && (
@@ -49,7 +59,7 @@ export const CheckoutItem: React.FC<CheckoutItemProps> = ({ name, price, quantit
           style={{
             width: '100%',
             fontSize: 15,
-            color: getToken('text-color-secondary', mode),
+            color: selected ? getToken('label-text-color', mode) : getToken('text-color-secondary', mode),
             paddingLeft: 52,
             paddingTop: 4,
             whiteSpace: 'nowrap',
