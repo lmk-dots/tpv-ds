@@ -72,7 +72,7 @@ Esto arrancará la aplicación en:
 
 ## 👨‍💻 Autor
 
-Proyecto desarrollado por **lmk-dots** como parte del **Trabajo Fin de Máster (TFM)**.  
+Proyecto desarrollado por **Luis Miguel Villoslada Montes** como parte del **Trabajo Fin de Máster (TFM)**.  
 
 🔗 GitHub: [https://github.com/lmk-dots](https://github.com/lmk-dots)  
 🌍 Demo: [https://lmk-dots.github.io/tpv-ds/](https://lmk-dots.github.io/tpv-ds/)
